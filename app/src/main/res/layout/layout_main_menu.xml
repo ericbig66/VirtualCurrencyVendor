@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:text="TextView"
+        android:text="請稍後...\n若經過一段時間仍未正常運作\n請聯絡客服人員"
         android:textSize="20sp" />
 
     <Button
