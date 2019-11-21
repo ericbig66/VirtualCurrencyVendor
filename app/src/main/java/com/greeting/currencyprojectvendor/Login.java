@@ -36,10 +36,10 @@ public class Login extends AppCompatActivity {
     }
 
     public void swmenu(){   //切換到主選單
-//        Intent intent = new Intent(this, MainMenu.class);
+        Intent intent = new Intent(this, MainMenu.class);
 //        intent.putExtra("msg",data);
-//        wcm = data;
-//        startActivity(intent);
+        wcm = data;
+        startActivity(intent);
     }
 
     @Override
@@ -125,8 +125,8 @@ public class Login extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
 
-            if (result.equals("null遊客您好!\n目前您尚有$null")){
-                result= "遊客您好!\n如需購物請先註冊帳號\n謝謝您的合作!";
+            if (result.equals("遊客您好!\n目前您尚有$null")){
+                result= "遊客您好!\n如出售物品請先註冊帳號\n謝謝您的合作!";
                 txtData.setText(result);//設定結果顯示
             }
             else{

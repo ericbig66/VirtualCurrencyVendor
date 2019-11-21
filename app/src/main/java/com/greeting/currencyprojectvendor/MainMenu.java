@@ -19,7 +19,7 @@ public class MainMenu extends AppCompatActivity {
     public void execute(View v){
         switch (v.getId()){
             case R.id.getcoin:
-//                intent = new Intent(MainMenu.this, Purchase.class);
+                intent = new Intent(MainMenu.this, Purchase.class);
                 break;
             case R.id.paycoin:
 //                intent = new Intent(MainMenu.this, Gift.class);
