@@ -31,8 +31,8 @@ public class Login extends AppCompatActivity {
     String account, password, data;
 
     public void swreg(){  //切換註冊頁面
-//        Intent intent = new Intent(this, Register.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, Register.class);
+        startActivity(intent);
     }
 
     public void swmenu(){   //切換到主選單
@@ -132,7 +132,7 @@ public class Login extends AppCompatActivity {
             else{
                 data = result;
                 acc=account;
-                Toast.makeText(Login.this, result, Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this,"請稍後...", Toast.LENGTH_SHORT).show();
                 swmenu();
             }
 
