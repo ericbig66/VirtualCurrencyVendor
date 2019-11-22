@@ -22,7 +22,7 @@ public class MainMenu extends AppCompatActivity {
                 intent = new Intent(MainMenu.this, Purchase.class);
                 break;
             case R.id.paycoin:
-//                intent = new Intent(MainMenu.this, Gift.class);
+                intent = new Intent(MainMenu.this, Gift.class);
                 break;
             case R.id.diary:
 //                intent = new Intent(MainMenu.this, Diary.class);
