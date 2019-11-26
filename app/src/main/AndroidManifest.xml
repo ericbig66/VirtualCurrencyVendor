@@ -17,7 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Diary"></activity>
+        <activity android:name=".Diary" />
         <activity android:name=".Gift" />
         <activity android:name=".Purchase" />
         <activity android:name=".MainMenu" />

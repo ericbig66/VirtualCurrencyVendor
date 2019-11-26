@@ -35,8 +35,6 @@ public class Diary extends AppCompatActivity {
     private ArrayList<String> amount = new ArrayList<>();
     private ArrayList<String> remain = new ArrayList<>();
 
-
-
     String acc;
     TextView dt;
     TableLayout tradeData;
@@ -46,8 +44,8 @@ public class Diary extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        acc = Login.acc;
         setContentView(R.layout.layout_diary);
+        acc = Login.acc;
         //dt = findViewById(R.id.detail);
         tradeData = findViewById(R.id.tradeData);
         ioacc.add("對方帳戶　　");
