@@ -24,7 +24,7 @@ public class Login extends AppCompatActivity {
     private static final String pass = "@SAclass";
     public static String wcm;
     public static String acc;
-
+    public static String vendorName;
     Button btnFetch, btnClear, reg;
     TextView txtData;
     EditText myacc, pwd;
@@ -107,6 +107,7 @@ public class Login extends AppCompatActivity {
                 cstmt.setString(3, password);
                 cstmt.registerOutParameter(4, Types.INTEGER);
                 cstmt.executeUpdate();
+                vendorName = cstmt.getString(1);
                 return cstmt.getString(1)+"您好!\n目前您尚有$"+cstmt.getString(4);//回傳結果給onPostExecute==>取得輸出變數(位置)
                 //experiment part end
 //

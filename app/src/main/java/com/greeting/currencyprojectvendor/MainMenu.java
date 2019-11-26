@@ -25,7 +25,8 @@ public class MainMenu extends AppCompatActivity {
                 intent = new Intent(MainMenu.this, Gift.class);
                 break;
             case R.id.diary:
-                intent = new Intent(MainMenu.this, Diary.class);
+//                intent = new Intent(MainMenu.this, Diary.class);
+                  intent = new Intent(MainMenu.this,NewDiary.class);
                 break;
         }
         startActivity(intent);
