@@ -168,14 +168,6 @@
                 android:gravity="bottom"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
-                    android:text=" * "
-                    android:textColor="#FF0000" />
-
                 <EditText
                     android:id="@+id/phone"
                     android:layout_width="match_parent"
@@ -185,7 +177,27 @@
                     android:hint="公司電話號碼"
                     android:inputType="phone" />
 
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:text=" * "
+                    android:textColor="#FF0000" />
+
             </LinearLayout>
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/profile"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:visibility="gone"
+                app:civ_border_color="#3f51b5"
+                app:civ_border_width="4dp"
+                app:civ_shadow="true"
+                app:civ_shadow_color="#3f51b5"
+                app:civ_shadow_radius="10"
+                tools:srcCompat="@tools:sample/backgrounds/scenic[15]" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -207,6 +219,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="上傳頭像" />
+
+                <Button
+                    android:id="@+id/rotate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="旋轉頭像"
+                    android:visibility="gone" />
 
             </LinearLayout>
 

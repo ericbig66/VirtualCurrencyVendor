@@ -3,8 +3,11 @@ package com.greeting.currencyprojectvendor;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,10 +22,13 @@ import java.sql.Types;
 public class Login extends AppCompatActivity {
 
     //連接資料庫的IP、帳號(不可用root)、密碼
-    private static final String url = "jdbc:mysql://140.135.113.196:3360/virtualcurrencyproject";
-    private static final String user = "currency";
-    private static final String pass = "@SAclass";
+    public static final String url = "jdbc:mysql://140.135.113.196:3360/virtualcurrencyproject";
+    public static final String user = "currency";
+    public static final String pass = "@SAclass";
     public static String wcm;
+    String pfs;//profile String
+    public static Bitmap pf;//profile picture
+    public static float pfr;//profile rotation
     public static String acc;
     public static String vendorName;
     Button btnFetch, btnClear, reg;
@@ -78,6 +84,15 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    public void ConvertToBitmap(){
+        try{
+            byte[] imageBytes = Base64.decode(pfs, Base64.DEFAULT);
+            pf = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+        }catch (Exception e){
+            //Log.v("test","error = "+e.toString());
+        }
+
+    }
 
     //建立連接與查詢非同步作業
     private class ConnectMySql extends AsyncTask<String, Void, String> {
@@ -101,13 +116,18 @@ public class Login extends AppCompatActivity {
 //                ResultSet rs = st.executeQuery("call login(@fname, '"+account+"', '"+password+"'); select @fname;");
                 //experiment part start
                 //此處呼叫Stored procedure(call 函數名稱(?)==>問號數量代表輸出、輸入的變數數量)
-                CallableStatement cstmt = con.prepareCall("{call vlogin(?,?,?,?)}");
+                CallableStatement cstmt = con.prepareCall("{call vlogin(?,?,?,?,?,?)}");
                 cstmt.registerOutParameter(1, Types.VARCHAR);//設定輸出變數(參數位置,參數型別)
                 cstmt.setString(2, account);
                 cstmt.setString(3, password);
                 cstmt.registerOutParameter(4, Types.INTEGER);
+                cstmt.registerOutParameter(5, Types.LONGVARCHAR);
+                cstmt.registerOutParameter(6, Types.FLOAT);
                 cstmt.executeUpdate();
+                pfs = cstmt.getString(5);
+                pfr = cstmt.getFloat(6);
                 vendorName = cstmt.getString(1);
+                ConvertToBitmap();
                 return cstmt.getString(1)+"您好!\n目前您尚有$"+cstmt.getString(4);//回傳結果給onPostExecute==>取得輸出變數(位置)
                 //experiment part end
 //

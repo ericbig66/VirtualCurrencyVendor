@@ -9,11 +9,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -21,6 +23,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.sql.CallableStatement;
@@ -38,10 +42,12 @@ public class Register extends AppCompatActivity {
     static final int OPEN_PIC = 1021;
 
     EditText name, em, pwd, chkpwd, phone;
-    Button pic, reg, login, clr;
+    Button pic, reg, login, clr, rotate;
+    CircularImageView profile;
 
     //裝載轉換出的EditText中的文字
-    String NAME="", EM="", PH="", PWD = "", CHKPWD="";
+    String NAME="", EM="", PH="", PWD = "", CHKPWD="", b64="";
+    Bitmap dataToConvert;
     //清除所有填寫的資料(會被重新填寫按鈕呼叫或註冊成功時會被呼叫)
     public void clear(){
         name.setText("");
@@ -51,6 +57,8 @@ public class Register extends AppCompatActivity {
         NAME="";
         EM="";
         PWD = "";
+        profile.setVisibility(View.GONE);
+        rotate.setVisibility(View.GONE);
     }
     //切換回登入模式(被該按鈕呼叫)
     public void swlogin(){
@@ -75,6 +83,7 @@ public class Register extends AppCompatActivity {
         err = CHKPWD.trim().isEmpty()?err+="確認密碼,":err;
         err = EM.trim().isEmpty()?err+="E-mail,":err;
         err = PH.trim().isEmpty()?err+="公司電話號碼":err;
+        err = b64.trim().isEmpty()?err+="上傳頭像,":err;
         err = err.isEmpty()?err:err.substring(0, err.length() - 1);
         if(!err.isEmpty()){err+=" 為必填項目\n請確認是否已填寫!";}
         haveError = !err.isEmpty();
@@ -114,6 +123,13 @@ public class Register extends AppCompatActivity {
         reg = findViewById(R.id.reg);
         login = findViewById(R.id.login);
         clr = findViewById(R.id.clr);
+
+        profile = findViewById(R.id.profile);
+
+        rotate = findViewById(R.id.rotate);
+
+        rotate.setOnClickListener(v -> rotate());
+
         pic.setOnClickListener(v -> picOpen());
 
         login.setOnClickListener(v -> swlogin());
@@ -130,6 +146,12 @@ public class Register extends AppCompatActivity {
 
         clr.setOnClickListener(v -> clear());
 
+    }
+
+    Float degree = 0f;
+    public void rotate(){
+        degree=(degree+90f)>=(360f)?0f:degree+90f;
+        profile.setRotation(degree);
     }
 
     private class ConnectMySql extends AsyncTask<String, Void, String> {
@@ -149,12 +171,14 @@ public class Register extends AppCompatActivity {
                 Class.forName("com.mysql.jdbc.Driver");
                 Connection con = DriverManager.getConnection(url, user, pass);
                 String result ="";
-                CallableStatement cstmt = con.prepareCall("{call vregister(?,?,?,?,?)}");
+                CallableStatement cstmt = con.prepareCall("{call vregister(?,?,?,?,?,?,?)}");
                 cstmt.setString(1, NAME);
                 cstmt.setString(2, PWD);
                 cstmt.setString(3, PH);
                 cstmt.setString(4, EM);
                 cstmt.registerOutParameter(5, Types.VARCHAR);
+                cstmt.setString(6,b64);
+                cstmt.setFloat(7,degree);
                 cstmt.executeUpdate();
                 return cstmt.getString(5);
 
@@ -169,6 +193,7 @@ public class Register extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             Toast.makeText(Register.this, result, Toast.LENGTH_SHORT).show();
+            Log.v("test", "error = "+result);
             if(result.equals("註冊成功!")){
                 clear();
                 swlogin();
@@ -186,7 +211,7 @@ public class Register extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, OPEN_PIC);
+        startActivityForResult(Intent.createChooser(intent,"請選擇您的頭像"), OPEN_PIC);
     }
     //取得圖片路徑
     @Override
@@ -194,32 +219,50 @@ public class Register extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 //        Toast.makeText(Register.this, "hi!",Toast.LENGTH_SHORT).show();
         if(requestCode == OPEN_PIC && RESULT_OK == resultCode){
-            Uri uri = data.getData();
-            try{
-                String[] projection = {MediaStore.Images.Media.DATA};
-                CursorLoader cursorLoader = new CursorLoader(this, uri, projection, null, null, null);
-                Cursor cursor = cursorLoader.loadInBackground();
-                int colum_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                cursor.moveToFirst();
-
-                String path = cursor.getString(colum_index);
-                encode(path);
-
-            }catch (Exception e){
-                Toast.makeText(Register.this,e.toString(),Toast.LENGTH_LONG).show();
-            }
+            Uri imgdata = data.getData();
+            profile.setImageURI(imgdata);
+            profile.setVisibility(View.VISIBLE);
+            rotate.setVisibility(View.VISIBLE);
+            dataToConvert = ((BitmapDrawable)profile.getDrawable()).getBitmap();
+            ConvertToBase64 convertToBase64 = new ConvertToBase64();
+            convertToBase64.execute("");
         }
     }
     //將圖片編碼為base64
-    private void encode(String path){
-        Bitmap bitmap = BitmapFactory.decodeFile(path);
-        ByteArrayOutputStream boas = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, boas);
-        byte[] bytes = new  byte[100];//???????????
-        byte[] encode = Base64.encode(bytes,Base64.DEFAULT);
-        String encodeString = new String(encode);
-        Toast.makeText(Register.this, encodeString, Toast.LENGTH_LONG).show();
+
+    private class ConvertToBase64 extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Toast.makeText(Register.this,"請稍後...",Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            dataToConvert.compress(Bitmap.CompressFormat.JPEG, 30, baos);
+            byte[] imageBytes = baos.toByteArray();
+            String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+            return imageString;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+
+            super.onPostExecute(s);
+            b64 = s;
+        }
     }
+
+//    private void encode(String path){
+//        Bitmap bitmap = BitmapFactory.decodeFile(path);
+//        ByteArrayOutputStream boas = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.PNG, 100, boas);
+//        byte[] bytes = new  byte[100];//???????????
+//        byte[] encode = Base64.encode(bytes,Base64.DEFAULT);
+//        String encodeString = new String(encode);
+//        Toast.makeText(Register.this, encodeString, Toast.LENGTH_LONG).show();
+//    }
 
 }
 
