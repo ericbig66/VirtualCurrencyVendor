@@ -46,6 +46,10 @@ public class MainMenu extends AppCompatActivity {
             case R.id.AlterProd:
                 intent = new Intent(MainMenu.this,AlterProduct.class);
                 break;
+            case R.id.addAct:
+                intent = new Intent(MainMenu.this,AddActivity.class);
+                break;
+
         }
         startActivity(intent);
         finish();

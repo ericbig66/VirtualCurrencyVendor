@@ -192,11 +192,11 @@ public class AlterProduct extends AppCompatActivity {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
-        amount.setEms(3);
+        amount.setEms(6);
+        amount.setHint("庫存:"+ Pamount.get(ID));
         amount.setInputType(InputType.TYPE_CLASS_NUMBER);
         amount.setLayoutParams(amountp);
         amount.setId(5*ID+2);
-        amount.setText("1");
 
         //商品圖片
         ImageView propic = new ImageView(this);
@@ -285,19 +285,16 @@ public class AlterProduct extends AppCompatActivity {
         detail.setTextSize(18f);
         detail.setLayoutParams(detailp);
         detail.setId(5*ID+3);
-        detail.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                final int id = ID;
-                if(amount.getText().toString().trim().isEmpty()){amount.setText("0");}
-                final int quantity = Integer.parseInt(amount.getText().toString());
-                closekeybord();
-                identifier("D",id,quantity);
-            }
+        detail.setOnClickListener(v -> {
+            final int id = ID;
+            if(amount.getText().toString().trim().isEmpty()){amount.setText("0");}
+            final int quantity = Integer.parseInt(amount.getText().toString());
+            closekeybord();
+            identifier("D",id,quantity);
+            amount.setText("");
         });
 
-        //訂購按鈕
+        //訂購按鈕111
         Button buybtn = new Button(this);
         LinearLayout.LayoutParams buybtnp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,

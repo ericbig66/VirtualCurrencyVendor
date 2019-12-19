@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AlterProduct"></activity>
+        <activity android:name=".AddActivity"></activity>
+        <activity android:name=".AlterProduct" />
         <activity android:name=".AddProduct" />
         <activity
             android:name=".NewDiary"

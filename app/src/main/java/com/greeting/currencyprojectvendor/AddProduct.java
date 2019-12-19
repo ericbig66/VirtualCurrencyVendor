@@ -96,19 +96,19 @@ public class AddProduct extends AppCompatActivity {
     }
 
     private class ConvertToBase64 extends AsyncTask<String, Void, String> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Toast.makeText(AddProduct.this,"請稍後...",Toast.LENGTH_SHORT).show();
-        }
-        @Override
-        protected String doInBackground(String... strings) {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            dataToConvert.compress(Bitmap.CompressFormat.JPEG, 30, baos);
-            byte[] imageBytes = baos.toByteArray();
-            String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-            return imageString;
-        }
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                Toast.makeText(AddProduct.this,"請稍後...",Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            protected String doInBackground(String... strings) {
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                dataToConvert.compress(Bitmap.CompressFormat.JPEG, 30, baos);
+                byte[] imageBytes = baos.toByteArray();
+                String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                return imageString;
+            }
 
         @Override
         protected void onPostExecute(String s) {

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    tools:context=".AddActivity">
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="新增活動"
+        android:textAlignment="center"
+        android:textSize="24sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="20dp" >
+
+            <EditText
+                android:id="@+id/actName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="活動名稱"
+                android:inputType="textPersonName" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="活動經費 ="
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/reward"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="4"
+                    android:hint="每人獎金"
+                    android:inputType="number" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="×"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/people"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="4"
+                    android:hint="名額限制"
+                    android:inputType="number" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#4D000000" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="報名截止日"
+                android:textSize="18sp" />
+
+            <DatePicker
+                android:id="@+id/endApp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner" />
+
+            <View
+                android:id="@+id/view8"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#4D000000" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="活動日期"
+                android:textSize="18sp" />
+
+            <DatePicker
+                android:id="@+id/actDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner" />
+
+            <View
+                android:id="@+id/view9"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#4D000000" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="簽到開放時間"
+                android:textSize="18sp" />
+
+            <TimePicker
+                android:id="@+id/actStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:timePickerMode="spinner" />
+
+            <View
+                android:id="@+id/view10"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#4D000000" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="簽到截止時間"
+                android:textSize="18sp" />
+
+            <TimePicker
+                android:id="@+id/actEnd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:timePickerMode="spinner" />
+
+            <View
+                android:id="@+id/view11"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#4D000000" />
+
+            <ImageView
+                android:id="@+id/actPic"
+                android:layout_width="120dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center_horizontal"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <Button
+                android:id="@+id/uploadPic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="上傳活動封面照片" />
+
+            <EditText
+                android:id="@+id/ActDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="活動說明(可多行)"
+                android:inputType="textMultiLine" />
+
+            <Button
+                android:id="@+id/AddAct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="新增活動" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

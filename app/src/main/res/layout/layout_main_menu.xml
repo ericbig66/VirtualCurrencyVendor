@@ -30,47 +30,66 @@
         android:text="請稍後...\n若經過一段時間仍未正常運作\n請聯絡客服人員"
         android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/getcoin"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:onClick="execute"
-        android:text="收取樂幣(結帳)"
-        android:textSize="20sp" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/paycoin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:onClick="execute"
-        android:text="發送紅包"
-        android:textSize="20sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/diary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:text="日記簿"
-        android:textSize="20sp"
-        android:onClick="execute"/>
+            <Button
+                android:id="@+id/AddProd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="execute"
+                android:text="新品上架"
+                android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/AddProd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="execute"
-        android:text="新品上架"
-        android:textSize="20sp" />
+            <Button
+                android:id="@+id/AlterProd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="execute"
+                android:text="商品異動"
+                android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/AlterProd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="execute"
-        android:text="商品異動"
-        android:textSize="20sp" />
+            <Button
+                android:id="@+id/getcoin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:onClick="execute"
+                android:text="收取樂幣(結帳)"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/diary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:onClick="execute"
+                android:text="日記簿"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/paycoin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:onClick="execute"
+                android:text="發送紅包"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/addAct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="execute"
+                android:text="新增活動(可換行)"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
