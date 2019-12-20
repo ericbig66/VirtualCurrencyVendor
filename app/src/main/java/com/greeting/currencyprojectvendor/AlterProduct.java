@@ -33,6 +33,11 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 
+import static com.greeting.currencyprojectvendor.MainMenu.PID;
+import static com.greeting.currencyprojectvendor.MainMenu.PIMG;
+import static com.greeting.currencyprojectvendor.MainMenu.Pamount;
+import static com.greeting.currencyprojectvendor.MainMenu.Pname;
+import static com.greeting.currencyprojectvendor.MainMenu.Pprice;
 import static com.greeting.currencyprojectvendor.MainMenu.vname;
 
 public class AlterProduct extends AppCompatActivity {
@@ -42,11 +47,7 @@ public class AlterProduct extends AppCompatActivity {
     private static final String user = "currency";
     private static final String pass = "@SAclass";
 
-    public static ArrayList<String> PID = new ArrayList<>();
-    public static ArrayList<String> Pname = new ArrayList<>();
-    public static ArrayList<Integer> Pprice = new ArrayList<>();
-    public static ArrayList<Integer> Pamount = new ArrayList<>();
-    public static ArrayList<String> PIMG = new ArrayList<>();
+    //array list已移至main menu
 
     int function = 0;
 
@@ -344,12 +345,12 @@ public class AlterProduct extends AppCompatActivity {
     /////////////////////////////////////////////
     public void identifier(String act, int ID,int quantity){
         if(act.equals("D")){
-            Log.v("test","您正在檢視第"+Pname.get(ID)+"的詳細資料");
+            //Log.v("test","您正在檢視第"+Pname.get(ID)+"的詳細資料");
             SellId=ID;
 //            Intent intent = new Intent(AlterProduct.this,MoreInfo.class);
 //            startActivity(intent);
         }else if(act.equals("R")){
-            Log.v("test","您購買了"+quantity+"個"+Pname.get(ID));
+            //Log.v("test","您購買了"+quantity+"個"+Pname.get(ID));
             function = 1;
             SellId = ID;
             ReleseQuantity = quantity;

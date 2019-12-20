@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Timer;
 
 import static com.greeting.currencyprojectvendor.Login.pass;
@@ -27,6 +28,17 @@ public class MainMenu extends AppCompatActivity {
     public static String vname="";
     final String acc = Login.acc;
     int obp = 0; //times of on back pressed
+
+    //寄放區
+
+    //Alter product
+    public static ArrayList<String> PID = new ArrayList<>();
+    public static ArrayList<String> Pname = new ArrayList<>();
+    public static ArrayList<Integer> Pprice = new ArrayList<>();
+    public static ArrayList<Integer> Pamount = new ArrayList<>();
+    public static ArrayList<String> PIMG = new ArrayList<>();
+
+    //
 
     public void execute(View v){
         switch (v.getId()){
