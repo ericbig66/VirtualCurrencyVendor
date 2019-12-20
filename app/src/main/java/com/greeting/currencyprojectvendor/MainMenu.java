@@ -49,6 +49,9 @@ public class MainMenu extends AppCompatActivity {
             case R.id.addAct:
                 intent = new Intent(MainMenu.this,AddActivity.class);
                 break;
+            case R.id.AlterEvent:
+                intent = new Intent(MainMenu.this,AlterEvent.class);
+                break;
 
         }
         startActivity(intent);

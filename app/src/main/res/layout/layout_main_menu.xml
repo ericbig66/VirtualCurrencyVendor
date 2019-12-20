@@ -56,6 +56,14 @@
                 android:textSize="20sp" />
 
             <Button
+                android:id="@+id/AlterEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="execute"
+                android:text="活動異動"
+                android:textSize="20sp" />
+
+            <Button
                 android:id="@+id/getcoin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -87,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="execute"
-                android:text="新增活動(可換行)"
+                android:text="新增活動"
                 android:textSize="20sp" />
         </LinearLayout>
     </ScrollView>
