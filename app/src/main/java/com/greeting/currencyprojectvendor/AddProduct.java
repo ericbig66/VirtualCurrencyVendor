@@ -49,7 +49,7 @@ public class AddProduct extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_product);
+        setContentView(R.layout.layout_add_product);
 
         Log.v("test","vname = "+vname);
 
@@ -61,11 +61,11 @@ public class AddProduct extends AppCompatActivity {
         propic = findViewById(R.id.propic);
 
         loadpic = findViewById(R.id.loadpic);
-        rotate = findViewById(R.id.rotate);
+//        rotate = findViewById(R.id.rotate);
         submit = findViewById(R.id.submit);
 
         loadpic.setOnClickListener(v -> picOpen());
-        rotate.setOnClickListener(v -> rotate());
+//        rotate.setOnClickListener(v -> rotate());
         submit.setOnClickListener(v -> verify());
     }
 

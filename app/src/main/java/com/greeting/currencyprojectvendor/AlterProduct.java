@@ -38,6 +38,8 @@ import static com.greeting.currencyprojectvendor.MainMenu.PIMG;
 import static com.greeting.currencyprojectvendor.MainMenu.Pamount;
 import static com.greeting.currencyprojectvendor.MainMenu.Pname;
 import static com.greeting.currencyprojectvendor.MainMenu.Pprice;
+import static com.greeting.currencyprojectvendor.MainMenu.ReleseQuantity;
+import static com.greeting.currencyprojectvendor.MainMenu.SellId;
 import static com.greeting.currencyprojectvendor.MainMenu.vname;
 
 public class AlterProduct extends AppCompatActivity {
@@ -53,7 +55,7 @@ public class AlterProduct extends AppCompatActivity {
 
     LinearLayout ll;
     ScrollView sv;
-    public static int cardCounter = 0, SellId=-1, ReleseQuantity=0;
+    public static int cardCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +127,7 @@ public class AlterProduct extends AppCompatActivity {
                     cstmt.registerOutParameter(6, Types.VARCHAR);
                     cstmt.setString(7, PIMG.get(SellId));
                     cstmt.executeUpdate();
+                    Log.v("test","info updated:\nvname ="+vname+"\npid ="+PID.get(SellId)+"\npname ="+Pname.get(SellId)+"\nprice ="+Pprice.get(SellId)+"\nquantity ="+ReleseQuantity);
                     return cstmt.getString("info");
                     //experiment part end
 
@@ -146,6 +149,10 @@ public class AlterProduct extends AppCompatActivity {
                 }
                 else if(function == 1){
                     Toast.makeText(AlterProduct.this, result, Toast.LENGTH_SHORT).show();
+                    if(result.contains("成功")){
+                        clear();
+                        recreate();
+                    }
                 }
                 function = -1;
             }catch (Exception e){
@@ -291,7 +298,7 @@ public class AlterProduct extends AppCompatActivity {
             amount.setText("");
         });
 
-        //訂購按鈕111
+        //訂購按鈕
         Button buybtn = new Button(this);
         LinearLayout.LayoutParams buybtnp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -347,8 +354,8 @@ public class AlterProduct extends AppCompatActivity {
         if(act.equals("D")){
             //Log.v("test","您正在檢視第"+Pname.get(ID)+"的詳細資料");
             SellId=ID;
-//            Intent intent = new Intent(AlterProduct.this,MoreInfo.class);
-//            startActivity(intent);
+            Intent intent = new Intent(AlterProduct.this,AlterProductDetail.class);
+            startActivity(intent);
         }else if(act.equals("R")){
             //Log.v("test","您購買了"+quantity+"個"+Pname.get(ID));
             function = 1;
@@ -373,14 +380,18 @@ public class AlterProduct extends AppCompatActivity {
         }
     }
 
-    public void onBackPressed(){
-        Intent intent = new Intent(AlterProduct.this, MainMenu.class);
-        startActivity(intent);
+    public void clear(){
         PID.clear();
         Pname.clear();
         Pprice.clear();
         Pamount.clear();
         PIMG.clear();
+    }
+
+    public void onBackPressed(){
+        Intent intent = new Intent(AlterProduct.this, MainMenu.class);
+        startActivity(intent);
+        clear();
         finish();
     }
 

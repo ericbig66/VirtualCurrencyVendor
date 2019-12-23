@@ -194,7 +194,7 @@ public class AddActivity extends AppCompatActivity {
                 Class.forName("com.mysql.jdbc.Driver");
                 Connection con = DriverManager.getConnection(url, user, pass);
                 String result ="";
-                CallableStatement cstmt = con.prepareCall("{call createActivity(?,?,?,?,?,?,?,?,?,?,?)}");
+                CallableStatement cstmt = con.prepareCall("{call createActivity(?,?,?,?,?,?,?,?,?,?,?,?)}");
                 cstmt.setString(1, acc);
                 cstmt.setString(2, ACTN);
                 cstmt.setInt(3, RW);
@@ -206,6 +206,7 @@ public class AddActivity extends AppCompatActivity {
                 cstmt.setString(9, AE);
                 cstmt.setString(10, b64);
                 cstmt.registerOutParameter(11, Types.VARCHAR);
+                cstmt.setString(12,"-1");
                 cstmt.executeUpdate();
                 return cstmt.getString(11);
 

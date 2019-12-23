@@ -15,6 +15,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Timer;
 
 import static com.greeting.currencyprojectvendor.Login.pass;
@@ -37,6 +38,23 @@ public class MainMenu extends AppCompatActivity {
     public static ArrayList<Integer> Pprice = new ArrayList<>();
     public static ArrayList<Integer> Pamount = new ArrayList<>();
     public static ArrayList<String> PIMG = new ArrayList<>();
+
+    public static int SellId=-1, ReleseQuantity=0;
+
+    //Alter event
+    public static ArrayList<String> Aid = new ArrayList<>();
+    public static ArrayList<String> Aname = new ArrayList<>();
+    public static ArrayList<Integer> Areward = new ArrayList<>();
+    public static ArrayList<Integer> Aamount = new ArrayList<>();
+    public static ArrayList<Integer> AamountLeft = new ArrayList<>();
+    public static ArrayList<String> Adesc = new ArrayList<>();
+    public static ArrayList<String> Avendor = new ArrayList<>();
+    public static ArrayList<Date> Aendapp = new ArrayList<>();
+    public static ArrayList<Date> AactDate = new ArrayList<>();
+    public static ArrayList<Date> AactStart = new ArrayList<>();
+    public static ArrayList<Date> AactEnd = new ArrayList<>();
+    public static ArrayList<String> Actpic = new ArrayList<>();
+    public static ArrayList<String> attended = new ArrayList<>();
 
     //
 

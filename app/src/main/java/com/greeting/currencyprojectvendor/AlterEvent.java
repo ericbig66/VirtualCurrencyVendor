@@ -34,22 +34,23 @@ import java.util.Date;
 import static com.greeting.currencyprojectvendor.Login.pass;
 import static com.greeting.currencyprojectvendor.Login.url;
 import static com.greeting.currencyprojectvendor.Login.user;
+import static com.greeting.currencyprojectvendor.MainMenu.AactDate;
+import static com.greeting.currencyprojectvendor.MainMenu.AactEnd;
+import static com.greeting.currencyprojectvendor.MainMenu.AactStart;
+import static com.greeting.currencyprojectvendor.MainMenu.Aamount;
+import static com.greeting.currencyprojectvendor.MainMenu.AamountLeft;
+import static com.greeting.currencyprojectvendor.MainMenu.Actpic;
+import static com.greeting.currencyprojectvendor.MainMenu.Adesc;
+import static com.greeting.currencyprojectvendor.MainMenu.Aendapp;
+import static com.greeting.currencyprojectvendor.MainMenu.Aid;
+import static com.greeting.currencyprojectvendor.MainMenu.Aname;
+import static com.greeting.currencyprojectvendor.MainMenu.Areward;
+import static com.greeting.currencyprojectvendor.MainMenu.Avendor;
+import static com.greeting.currencyprojectvendor.MainMenu.attended;
 
 public class AlterEvent extends AppCompatActivity {
 
-    public static ArrayList<String> Aid = new ArrayList<>();
-    public static ArrayList<String> Aname = new ArrayList<>();
-    public static ArrayList<Integer> Areward = new ArrayList<>();
-    public static ArrayList<Integer> Aamount = new ArrayList<>();
-    public static ArrayList<Integer> AamountLeft = new ArrayList<>();
-    public static ArrayList<String> Adesc = new ArrayList<>();
-    public static ArrayList<String> Avendor = new ArrayList<>();
-    public static ArrayList<Date> Aendapp = new ArrayList<>();
-    public static ArrayList<Date> AactDate = new ArrayList<>();
-    public static ArrayList<Date> AactStart = new ArrayList<>();
-    public static ArrayList<Date> AactEnd = new ArrayList<>();
-    public static ArrayList<String> Actpic = new ArrayList<>();
-    public static ArrayList<String> attended = new ArrayList<>();
+    //array list 已移至 main menu
     int function = 0;
 
     LinearLayout ll;
@@ -342,18 +343,7 @@ public class AlterEvent extends AppCompatActivity {
         }
     }
 
-    //隱藏鍵盤
-    public void closekeybord() {
-        View view = this.getCurrentFocus();
-        if(view != null){
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(),0);
-        }
-    }
-
-    public void onBackPressed(){
-        Intent intent = new Intent(AlterEvent.this, MainMenu.class);
-        startActivity(intent);
+    public void clear(){
         Aid.clear();
         Aname.clear();
         Areward.clear();
@@ -367,6 +357,21 @@ public class AlterEvent extends AppCompatActivity {
         AactEnd.clear();
         Actpic.clear();
         attended.clear();
+    }
+
+    //隱藏鍵盤
+    public void closekeybord() {
+        View view = this.getCurrentFocus();
+        if(view != null){
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(),0);
+        }
+    }
+
+    public void onBackPressed(){
+        Intent intent = new Intent(AlterEvent.this, MainMenu.class);
+        startActivity(intent);
+        clear();
         finish();
     }
 

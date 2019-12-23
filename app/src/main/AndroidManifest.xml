@@ -17,7 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AlterEvent"></activity>
+        <activity android:name=".AlterEventDetail"></activity>
+        <activity android:name=".AlterProductDetail" />
+        <activity android:name=".AlterEvent" />
         <activity android:name=".AddActivity" />
         <activity android:name=".AlterProduct" />
         <activity android:name=".AddProduct" />
