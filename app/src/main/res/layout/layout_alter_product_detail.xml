@@ -31,6 +31,14 @@ tools:context=".AlterProductDetail">
             android:scaleType="centerCrop"
             tools:srcCompat="@tools:sample/avatars" />
 
+        <Button
+            android:id="@+id/alterPic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="修改商品圖片"
+            android:textSize="18sp" />
+
         <View
             android:layout_width="fill_parent"
             android:layout_height="1px"
@@ -54,13 +62,6 @@ tools:context=".AlterProductDetail">
                 android:hint="商品名稱"
                 android:textSize="20sp" />
 
-            <Button
-                android:id="@+id/alterPic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="修改商品圖片"
-                android:textSize="18sp" />
         </LinearLayout>
 
         <View

@@ -56,6 +56,7 @@ public class MainMenu extends AppCompatActivity {
     public static ArrayList<String> Actpic = new ArrayList<>();
     public static ArrayList<String> attended = new ArrayList<>();
 
+    public static int EventId = -1;
     //
 
     public void execute(View v){

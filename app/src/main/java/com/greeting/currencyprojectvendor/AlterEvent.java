@@ -46,6 +46,7 @@ import static com.greeting.currencyprojectvendor.MainMenu.Aid;
 import static com.greeting.currencyprojectvendor.MainMenu.Aname;
 import static com.greeting.currencyprojectvendor.MainMenu.Areward;
 import static com.greeting.currencyprojectvendor.MainMenu.Avendor;
+import static com.greeting.currencyprojectvendor.MainMenu.EventId;
 import static com.greeting.currencyprojectvendor.MainMenu.attended;
 
 public class AlterEvent extends AppCompatActivity {
@@ -55,7 +56,7 @@ public class AlterEvent extends AppCompatActivity {
 
     LinearLayout ll;
     ScrollView sv;
-    public static int cardCounter = 0, EventId=-1, BuyQuantity=0;
+    public static int cardCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +101,8 @@ public class AlterEvent extends AppCompatActivity {
                         Avendor.add(rs.getString("vendor"));
                         Aendapp.add(rs.getDate("endApply"));
                         AactDate.add(rs.getDate("actDate"));
-                        AactStart.add(rs.getDate("actStart"));
-                        AactEnd.add(rs.getDate("actEnd"));
+                        AactStart.add(rs.getTime("actStart"));
+                        AactEnd.add(rs.getTime("actEnd"));
                         Actpic.add(rs.getString("actpic"));
                     }
 
@@ -333,8 +334,8 @@ public class AlterEvent extends AppCompatActivity {
         EventId=ID;
         if(act.equals("D")){
             Log.v("test","您正在檢視第"+Aname.get(ID)+"的詳細資料");
-//            Intent intent = new Intent(AlterEvent.this, EventDetail.class);
-//            startActivity(intent);
+            Intent intent = new Intent(AlterEvent.this, AlterEventDetail.class);
+            startActivity(intent);
         }else if(act.equals("B")){
             Log.v("test","您報名了==>"+Aname.get(ID));
             function = 1;

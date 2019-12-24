@@ -25,6 +25,9 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Types;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static com.greeting.currencyprojectvendor.Login.acc;
 import static com.greeting.currencyprojectvendor.Login.pass;
 import static com.greeting.currencyprojectvendor.Login.url;
@@ -40,7 +43,19 @@ import static com.greeting.currencyprojectvendor.MainMenu.vname;
 import static com.greeting.currencyprojectvendor.Register.OPEN_PIC;
 
 public class AlterProductDetail extends AppCompatActivity {
-    
+
+    //系統時間及格式設定
+    Date curDate = new Date(System.currentTimeMillis()) ;//取得系統時間
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");//格式化日期顯示方式
+    SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");//格式化時間顯示方式
+    //格式化出可直接使用的年月日變數
+    SimpleDateFormat year = new SimpleDateFormat("yyyy");
+    SimpleDateFormat month = new SimpleDateFormat("mm");
+    SimpleDateFormat day = new SimpleDateFormat("dd");
+    String yyyy = year.format(curDate);
+    String mm = month.format(curDate);
+    String dd = day.format(curDate);
+
     public Bitmap ConvertToBitmap(int ID){
         try{
 //            Log.v("test",PIMG.get(ID));
@@ -106,18 +121,6 @@ public class AlterProductDetail extends AppCompatActivity {
         btnChangeConfirm.setOnClickListener(v -> verifier());
     }
 
-//    public void onRadioButtonClicked(View view){
-//        boolean checked=((RadioButton) view).isChecked();
-//        switch (view.getId()){
-//            case R.id.RadioShelves:
-//                if(checked)
-//                    break;
-//            case R.id.RadioTakeOff:
-//                if (checked);
-//                break;
-//        }
-//    }
-
     public void clear(){
         PID.clear();
         Pname.clear();
@@ -155,7 +158,19 @@ public class AlterProductDetail extends AppCompatActivity {
             merPic.setImageURI(imgdata);
             merPic.setVisibility(View.VISIBLE);
             dataToConvert = ((BitmapDrawable)merPic.getDrawable()).getBitmap();
-            merPic.setVisibility(View.VISIBLE);
+            int w = dataToConvert.getWidth();
+            int h = dataToConvert.getHeight();
+            int scale = 1;
+            if(w>h && (w/360)>1 || h==w && (w/360)>1){
+                scale = w/360;
+                w = w/scale;
+                h = h/scale;
+            }else if(h>w && (h/360)>1){
+                scale = h/360;
+                w = w/scale;
+                h = h/scale;
+            }
+            merPic.setImageBitmap(Bitmap.createScaledBitmap(dataToConvert, w, h, false));
             ConvertToBase64 convertToBase64 = new ConvertToBase64();
             convertToBase64.execute("");
         }
