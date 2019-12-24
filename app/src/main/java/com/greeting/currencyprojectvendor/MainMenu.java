@@ -150,7 +150,7 @@ public class MainMenu extends AppCompatActivity {
 
                 while(rs.next()){
                     vname = rs.getString(1);
-                    result += rs.getString(1).toString()+"您好!\n目前您尚有$"+rs.getInt(2);
+                    result += rs.getString(1)+"您好!\n目前您尚有$"+rs.getInt(2);
                 }
                 return result;
             }catch (Exception e){
