@@ -83,7 +83,9 @@ public class MainMenu extends AppCompatActivity {
             case R.id.AlterEvent:
                 intent = new Intent(MainMenu.this,AlterEvent.class);
                 break;
-
+            case R.id.alter_vendor:
+                intent = new Intent(MainMenu.this,AlterVendor.class);
+                break;
         }
         startActivity(intent);
         finish();

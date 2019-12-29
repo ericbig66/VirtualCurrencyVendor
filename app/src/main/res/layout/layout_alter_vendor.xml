@@ -4,11 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
     android:orientation="vertical"
-    app:layout_scrollFlags="scroll"
-    tools:context=".Register">
+    tools:context=".AlterVendor">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_weight="0"
-            android:text="加入會員"
+            android:text="會員資料修改"
             android:textSize="20sp" />
 
         <TextView
@@ -53,14 +50,12 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.1"
                     android:gravity="center"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text=" * "
                         android:textColor="#FF0000" />
                 </LinearLayout>
@@ -71,8 +66,33 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:ems="10"
+                    android:enabled="false"
                     android:hint="公司名稱"
                     android:inputType="textPersonName" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" * "
+                    android:textColor="#FF0000" />
+
+                <EditText
+                    android:id="@+id/opwd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:enabled="true"
+                    android:hint="目前密碼"
+                    android:inputType="none|textPassword" />
 
             </LinearLayout>
 
@@ -102,7 +122,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:ems="10"
-                    android:hint="密碼"
+                    android:hint="新密碼"
                     android:inputType="textPassword" />
 
                 <LinearLayout
@@ -126,7 +146,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:ems="10"
-                    android:hint="確認密碼"
+                    android:hint="確認新密碼"
                     android:inputType="textPassword" />
 
             </LinearLayout>
@@ -156,6 +176,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.9"
                     android:ems="10"
+                    android:enabled="false"
                     android:hint="E-mail"
                     android:inputType="textEmailAddress" />
 
@@ -191,7 +212,7 @@
                 android:id="@+id/profile"
                 android:layout_width="250dp"
                 android:layout_height="250dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:civ_border_color="#3f51b5"
                 app:civ_border_width="4dp"
                 app:civ_shadow="true"
@@ -218,7 +239,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="上傳頭像" />
+                    android:text="變更頭像" />
 
                 <Button
                     android:id="@+id/rotate"
@@ -226,7 +247,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="旋轉頭像"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
             </LinearLayout>
 
@@ -234,20 +255,15 @@
                 android:id="@+id/reg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="註冊" />
-
-            <Button
-                android:id="@+id/login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="回登入頁面" />
+                android:text="確定修改" />
 
             <Button
                 android:id="@+id/clr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="重新填寫" />
+                android:text="放棄修改" />
 
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

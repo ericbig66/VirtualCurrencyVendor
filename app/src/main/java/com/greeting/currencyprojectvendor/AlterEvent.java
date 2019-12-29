@@ -50,6 +50,7 @@ import static com.greeting.currencyprojectvendor.MainMenu.Areward;
 import static com.greeting.currencyprojectvendor.MainMenu.Avendor;
 import static com.greeting.currencyprojectvendor.MainMenu.EventId;
 import static com.greeting.currencyprojectvendor.MainMenu.attended;
+import static com.greeting.currencyprojectvendor.MainMenu.vname;
 
 public class AlterEvent extends AppCompatActivity {
 
@@ -96,18 +97,21 @@ public class AlterEvent extends AppCompatActivity {
                     ResultSet rs = st.executeQuery("select * from activity");
 
                     while (rs.next()) {
-                        Aid.add(rs.getString("activityNumber"));
-                        Aname.add(rs.getString("activityName"));
-                        Areward.add(rs.getInt("reward"));
-                        Aamount.add(rs.getInt("amount"));
-                        AamountLeft.add(rs.getInt("amountLeft"));
-                        Adesc.add(rs.getString("description"));
-                        Avendor.add(rs.getString("vendor"));
-                        Aendapp.add(rs.getDate("endApply"));
-                        AactDate.add(rs.getDate("actDate"));
-                        AactStart.add(rs.getTime("actStart"));
-                        AactEnd.add(rs.getTime("actEnd"));
-                        Actpic.add(rs.getString("actpic"));
+                        if(rs.getString("vendor").equals(vname)){
+                            Aid.add(rs.getString("activityNumber"));
+                            Aname.add(rs.getString("activityName"));
+                            Areward.add(rs.getInt("reward"));
+                            Aamount.add(rs.getInt("amount"));
+                            AamountLeft.add(rs.getInt("amountLeft"));
+                            Adesc.add(rs.getString("description"));
+                            Avendor.add(rs.getString("vendor"));
+                            Aendapp.add(rs.getDate("endApply"));
+                            AactDate.add(rs.getDate("actDate"));
+                            AactStart.add(rs.getTime("actStart"));
+                            AactEnd.add(rs.getTime("actEnd"));
+                            Actpic.add(rs.getString("actpic"));
+                        }
+
                     }
 
                     attended.clear();

@@ -26,7 +26,7 @@ public class Login extends AppCompatActivity {
     public static final String user = "currency";
     public static final String pass = "@SAclass";
     public static String wcm;
-    String pfs;//profile String
+    public static String pfs;//profile String
     public static Bitmap pf;//profile picture
     public static float pfr;//profile rotation
     public static String acc;

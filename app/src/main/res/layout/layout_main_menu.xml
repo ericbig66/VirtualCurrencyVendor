@@ -40,6 +40,14 @@
             android:orientation="vertical" >
 
             <Button
+                android:id="@+id/alter_vendor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="execute"
+                android:text="會員專區"
+                android:textSize="20sp" />
+
+            <Button
                 android:id="@+id/AddProd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

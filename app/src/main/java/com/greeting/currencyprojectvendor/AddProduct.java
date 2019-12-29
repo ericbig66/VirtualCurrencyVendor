@@ -86,9 +86,9 @@ public class AddProduct extends AppCompatActivity {
             Uri imgdata = data.getData();
             propic.setImageURI(imgdata);
             propic.setVisibility(View.VISIBLE);
-            rotate.setVisibility(View.VISIBLE);
+//            rotate.setVisibility(View.VISIBLE);
             dataToConvert = ((BitmapDrawable)propic.getDrawable()).getBitmap();
-            rotate.setVisibility(View.VISIBLE);
+//            rotate.setVisibility(View.VISIBLE);
             propic.setVisibility(View.VISIBLE);
             AddProduct.ConvertToBase64 convertToBase64 = new AddProduct.ConvertToBase64();
             convertToBase64.execute("");
@@ -183,10 +183,10 @@ public class AddProduct extends AppCompatActivity {
 
         }
 
-    Float degree = 0f;
-    public void rotate(){
-        degree=(degree+90f)>=(360f)?0f:degree+90f;
-        propic.setRotation(degree);
+//    Float degree = 0f;
+//    public void rotate(){
+//        degree=(degree+90f)>=(360f)?0f:degree+90f;
+//        propic.setRotation(degree);
 //        if(degree == 90 || degree == 270){
 //            propic.setLayoutParams(portrait);
 //        }else{
@@ -194,5 +194,5 @@ public class AddProduct extends AppCompatActivity {
 //        }
 //        Log.v("test","propic size = "+propic.getWidth()+"*"+propic.getHeight());
 //        propic.setScaleType(ImageView.ScaleType.CENTER_CROP);
-    }
+//    }
 }
