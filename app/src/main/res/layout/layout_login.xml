@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="15dp"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".Login">
 
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/melon" />
+
     <TextView
+        android:id="@+id/Li"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_weight="0"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="15dp"
         android:text="會員登入"
         android:textSize="20sp" />
 
@@ -21,7 +29,9 @@
         android:id="@+id/txtData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
+        android:layout_below="@id/Li"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:textSize="18sp" />
@@ -30,25 +40,33 @@
         android:id="@+id/acc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
+        android:layout_below="@id/txtData"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:ems="10"
         android:hint="e-mail"
         android:inputType="textEmailAddress"
-        android:text="e@f.g" />
+        android:text="a@b.c" />
 
     <EditText
         android:id="@+id/pwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
+        android:layout_below="@id/acc"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:ems="10"
         android:hint="密碼"
         android:inputType="textPassword"
-        android:text="\????" />
+        android:text="d" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pwd"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp">
 
         <Button
             android:id="@+id/btnFetch"
@@ -73,4 +91,4 @@
     </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>

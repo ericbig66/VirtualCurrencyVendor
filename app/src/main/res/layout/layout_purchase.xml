@@ -1,22 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center|center_horizontal"
     android:orientation="vertical"
     tools:context=".Purchase">
 
-    <SurfaceView
-        android:id="@+id/surfaceView"
-        android:layout_width="300dp"
-        android:layout_height="400dp"
-        android:layout_weight="0" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:text="Button" />
-</LinearLayout>
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/melon" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingTop="20dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="20dp">
+
+            <Spinner
+                android:id="@+id/DropDown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="15dp"
+                android:spinnerMode="dialog" />
+
+            <TextView
+                android:id="@+id/actName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="兌換商品請掃描我"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
+            <ImageView
+                android:id="@+id/qrCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                tools:layout_editor_absoluteX="120dp"
+                tools:layout_editor_absoluteY="240dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AlterVendor"></activity>
+        <activity android:name=".Purchase"></activity>
+        <activity android:name=".AlterVendor" />
         <activity android:name=".AlterEventDetail" />
         <activity android:name=".AlterProductDetail" />
         <activity android:name=".AlterEvent" />
@@ -29,7 +30,6 @@
             android:label="@string/title_activity_new_diary"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Gift" />
-        <activity android:name=".Purchase" />
         <activity android:name=".MainMenu" />
         <activity android:name=".Register" />
         <activity android:name=".Login">

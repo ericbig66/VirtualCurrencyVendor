@@ -57,6 +57,10 @@ public class MainMenu extends AppCompatActivity {
     public static ArrayList<String> attended = new ArrayList<>();
 
     public static int EventId = -1;
+
+
+    //測試用變數
+    public static ArrayList<String> TMP = new ArrayList<>();
     //
 
     public void execute(View v){
