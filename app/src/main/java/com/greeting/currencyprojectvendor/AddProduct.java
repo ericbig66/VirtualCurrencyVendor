@@ -117,17 +117,15 @@ public class AddProduct extends AppCompatActivity {
 
             super.onPostExecute(s);
             b64 = s;
-            if (s.contains("成功")) {
-                onBackPressed();
-            }
+
         }
     }
 
     public void verify() {
         PID = pid.getText().toString().trim();
         PNAME = pname.getText().toString().trim();
-        PPRICE = Integer.parseInt(Pprice.getText().toString().trim());
-        STOCK = Integer.parseInt(stock.getText().toString().trim());
+        PPRICE = Integer.parseInt((Pprice.getText().toString().trim()).isEmpty()?"-1":(Pprice.getText().toString().trim()));
+        STOCK = Integer.parseInt((stock.getText().toString().trim()).isEmpty()?"-1":(stock.getText().toString().trim()));
         String error = "";
         error = PID.isEmpty() ? error + "商品編號, " : error;
         error = PNAME.isEmpty() ? error + "商品名稱, " : error;
@@ -139,7 +137,7 @@ public class AddProduct extends AppCompatActivity {
             ConnectMySql connectMySql = new ConnectMySql();
             connectMySql.execute("");
         } else {
-            Toast.makeText(AddProduct.this, error, Toast.LENGTH_LONG);
+            Toast.makeText(AddProduct.this, error, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -182,6 +180,9 @@ public class AddProduct extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             Toast.makeText(AddProduct.this, result, Toast.LENGTH_LONG).show();
+            if (result.contains("成功")) {
+                onBackPressed();
+            }
         }
 
 

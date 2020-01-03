@@ -18,6 +18,9 @@
         android:id="@+id/LL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
         android:gravity="bottom"
         android:orientation="horizontal">
 
@@ -47,8 +50,11 @@
             android:id="@+id/df"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -120,6 +126,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:minWidth="10dp"
                         android:text=" * "
                         android:textColor="#FF0000" />
                 </LinearLayout>
@@ -144,6 +151,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:minWidth="10dp"
                         android:text=" * "
                         android:textColor="#FF0000" />
                 </LinearLayout>
@@ -232,7 +240,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.1"
-                android:gravity="center"
+                android:gravity="top"
                 android:orientation="horizontal">
 
                 <TextView
@@ -246,8 +254,10 @@
                     android:id="@+id/pic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_button"
                     android:text="變更頭像" />
@@ -258,6 +268,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="0"
                     android:background="@drawable/rounded_button"
                     android:text="旋轉頭像"
@@ -269,7 +280,6 @@
                 android:id="@+id/reg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:background="@drawable/rounded_button"
                 android:text="確定修改" />
 

@@ -213,6 +213,7 @@ public class AlterProductDetail extends AppCompatActivity {
         if(!error.trim().isEmpty()){
             error = "請確實填寫"+error.substring(0,error.length()-2);
             Toast.makeText(AlterProductDetail.this,error,Toast.LENGTH_SHORT).show();
+            error="";
         }else{
             pid= edtProductID.getText().toString();
             price = Integer.parseInt(edtProductPrice.getText().toString().trim());

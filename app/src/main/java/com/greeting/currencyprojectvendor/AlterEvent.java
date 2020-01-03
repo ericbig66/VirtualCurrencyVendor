@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -284,6 +285,7 @@ public class AlterEvent extends AppCompatActivity {
             );
             amount_add.setHint("餘額:" + AamountLeft.get(ID));
             amount_add.setTextSize(18f);
+            amount_add.setInputType(InputType.TYPE_CLASS_NUMBER);
             amount_add.setLayoutParams(amountp);
 
             //按鈕箱

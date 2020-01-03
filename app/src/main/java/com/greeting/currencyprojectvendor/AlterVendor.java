@@ -56,6 +56,8 @@ public class AlterVendor extends AppCompatActivity {
         NAME="";
         EM="";
         PWD = "";
+        OPWD = "";
+        opwd.setText("");
 
     }
 
@@ -146,7 +148,7 @@ public class AlterVendor extends AppCompatActivity {
             verify();
         });
 
-        clr.setOnClickListener(v -> clear());
+        clr.setOnClickListener(v -> onBackPressed());
 
         ConnectMySql connectMySql = new ConnectMySql();
         connectMySql.execute("");
@@ -224,6 +226,7 @@ public class AlterVendor extends AppCompatActivity {
           Log.v("test", "error = "+result);
             if(result.equals("修改成功!")){
                Toast.makeText(AlterVendor.this, result, Toast.LENGTH_SHORT).show();
+               pf = dataToConvert;
                onBackPressed();
             }else if(function == 0){
                 data = result;
@@ -297,7 +300,7 @@ public class AlterVendor extends AppCompatActivity {
         phone.setText(tmp[0]);
         b64 = pfs;
         profile.setImageBitmap(pf);
-
+//        if(degree.toString().trim().isEmpty()){degree = 0f;}
         degree = Float.parseFloat(tmp[1]) - 90f;
         rotate();
 

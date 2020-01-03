@@ -22,32 +22,18 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
-import java.sql.CallableStatement;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.sql.Types;
-import java.util.ArrayList;
 
-import static com.greeting.currencyprojectvendor.Login.acc;
 import static com.greeting.currencyprojectvendor.Login.pass;
 import static com.greeting.currencyprojectvendor.Login.url;
 import static com.greeting.currencyprojectvendor.Login.user;
-import static com.greeting.currencyprojectvendor.MainMenu.AactDate;
-import static com.greeting.currencyprojectvendor.MainMenu.AactEnd;
-import static com.greeting.currencyprojectvendor.MainMenu.AactStart;
-import static com.greeting.currencyprojectvendor.MainMenu.Aamount;
-import static com.greeting.currencyprojectvendor.MainMenu.AamountLeft;
-import static com.greeting.currencyprojectvendor.MainMenu.Actpic;
-import static com.greeting.currencyprojectvendor.MainMenu.Adesc;
-import static com.greeting.currencyprojectvendor.MainMenu.Aendapp;
+
 import static com.greeting.currencyprojectvendor.MainMenu.Aid;
 import static com.greeting.currencyprojectvendor.MainMenu.Aname;
-import static com.greeting.currencyprojectvendor.MainMenu.Areward;
-import static com.greeting.currencyprojectvendor.MainMenu.Avendor;
-import static com.greeting.currencyprojectvendor.MainMenu.EventId;
-import static com.greeting.currencyprojectvendor.MainMenu.attended;
 
 public class Gift extends AppCompatActivity {
     Button pay;
@@ -59,6 +45,8 @@ public class Gift extends AppCompatActivity {
     final String acc =Login.acc;
 
     public void onBackPressed(){
+        Aid.clear();
+        Aname.clear();
         Intent intent = new Intent(Gift.this, MainMenu.class);
         startActivity(intent);
     }
@@ -108,13 +96,19 @@ public class Gift extends AppCompatActivity {
     public void getCode(View v) {
         BarcodeEncoder encoder = new BarcodeEncoder();
         Log.v("test",Login.acc+"cj/1l," +amount .getText().toString());
-        try{
-            Bitmap bit = encoder.encodeBitmap(Login.acc+"cj/1l," +amount .getText().toString()
-                    , BarcodeFormat.QR_CODE,1000,1000);
-            qrCode.setImageBitmap(bit);
-        }catch (WriterException e){
-            e.printStackTrace();
+        if(amount.getText().toString().trim().isEmpty() || Integer.parseInt(amount.getText().toString().trim())<1){Toast.makeText(Gift.this,"請輸入紅包金額",Toast.LENGTH_LONG).show();}
+        else{
+
+            try{
+                Bitmap bit = encoder.encodeBitmap(Login.acc+"cj/1l," +amount .getText().toString()
+                        , BarcodeFormat.QR_CODE,1000,1000);
+                qrCode.setImageBitmap(bit);
+            }catch (WriterException e){
+                e.printStackTrace();
+            }
         }
+
+
     }
 
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import java.util.Date;
 import java.util.Timer;
 
 import static com.greeting.currencyprojectvendor.Login.pass;
+import static com.greeting.currencyprojectvendor.Login.pf;
 import static com.greeting.currencyprojectvendor.Login.url;
 import static com.greeting.currencyprojectvendor.Login.user;
 
@@ -103,7 +105,7 @@ public class MainMenu extends AppCompatActivity {
             Login.acc ="";
             Intent intent = new Intent(MainMenu.this, Login.class);
             startActivity(intent);
-            Login.pf = null;
+            pf = null;
             finish();
         }
         else{
@@ -117,7 +119,7 @@ public class MainMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //        Intent intent = getIntent();
 //        String msg = intent.getStringExtra("msg");
-
+//        Log.v("test", "profile size = " + pf.getWidth()+"*"+pf.getHeight());
         String msg = Login.wcm;
         setContentView(R.layout.layout_main_menu);
         wmsg = findViewById(R.id.msg);
@@ -125,9 +127,12 @@ public class MainMenu extends AppCompatActivity {
 //        wmsg.setText(Login.wcm);
         profile = findViewById(R.id.profile);
         try {
-            profile.setImageBitmap(Login.pf);
+            profile.setImageBitmap(pf);
             profile.setRotation(Login.pfr);
-        }catch (Exception e){}
+            Log.v("test", "profile size = " + pf.getWidth()+"*"+pf.getHeight());
+        }catch (Exception e){
+            Log.v("test","profile error = "+e.toString());
+        }
 
         ConnectMySql connectMySql = new ConnectMySql();
         connectMySql.execute("");
