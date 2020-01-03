@@ -40,7 +40,9 @@
                 android:id="@+id/alterPic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_weight="0"
+                android:background="@drawable/rounded_button"
                 android:text="修改活動圖片"
                 android:textSize="18sp" />
 

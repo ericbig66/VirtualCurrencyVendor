@@ -45,8 +45,7 @@
         android:layout_marginRight="15dp"
         android:ems="10"
         android:hint="e-mail"
-        android:inputType="textEmailAddress"
-        android:text="a@b.c" />
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/pwd"
@@ -57,13 +56,13 @@
         android:layout_marginRight="15dp"
         android:ems="10"
         android:hint="密碼"
-        android:inputType="textPassword"
-        android:text="d" />
+        android:inputType="textPassword" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/pwd"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="15dp">
@@ -73,13 +72,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
+            android:background="@drawable/rounded_button"
             android:text="登入" />
 
         <Button
             android:id="@+id/btnClear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="0"
+            android:background="@drawable/rounded_button"
             android:text="清除" />
 
         <Button
@@ -87,6 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
+            android:background="@drawable/rounded_button"
             android:text="加入會員" />
     </LinearLayout>
 
