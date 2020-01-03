@@ -146,7 +146,6 @@ public class AddActivity extends AppCompatActivity {
             w/=scale;
             h/=scale;
             actPic.setImageBitmap(Bitmap.createScaledBitmap(dataToConvert,w,h,false));
-
             actPic.setVisibility(View.VISIBLE);
             ConvertToBase64 convertToBase64 = new ConvertToBase64();
             convertToBase64.execute("");
@@ -220,10 +219,17 @@ public class AddActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             Toast.makeText(AddActivity.this,result,Toast.LENGTH_LONG).show();
+            if (result.contains("成功")) {
+                onBackPressed();
+            }
         }
 
 
     }
-
+    public void onBackPressed(){
+        Intent intent = new Intent(AddActivity.this, MainMenu.class);
+        startActivity(intent);
+        finish();
+    }
 
 }

@@ -39,6 +39,7 @@ public class Purchase extends AppCompatActivity {
     public void onBackPressed(){
         Intent intent = new Intent(Purchase.this, MainMenu.class);
         startActivity(intent);
+        finish();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.greeting.currencyprojectvendor;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,5 +27,10 @@ public class NewDiary extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
         Toast.makeText(NewDiary.this,"請稍後...",Toast.LENGTH_SHORT).show();
+    }
+    public void onBackPressed(){
+        Intent intent = new Intent(NewDiary.this, MainMenu.class);
+        startActivity(intent);
+        finish();
     }
 }
