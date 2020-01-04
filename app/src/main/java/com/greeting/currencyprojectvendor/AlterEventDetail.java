@@ -27,6 +27,7 @@ import java.io.ByteArrayOutputStream;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.Time;
 import java.sql.Types;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -280,6 +281,7 @@ public class AlterEventDetail extends AppCompatActivity {
             error = ea.before(ad)?error:error+"\n\n注意:活動日期必須大於報名截止日期";
             AS = (actStart.getCurrentHour()+":"+actStart.getCurrentMinute());
             AE = (actEnd.getCurrentHour()+":"+actEnd.getCurrentMinute());
+
             Date as = timeFormatter.parse(AS);
             Date ae = timeFormatter.parse(AE);
             error = as.before(ae)?error:error+"\n\n注意:簽到截止時間必須大於簽到開始時間";

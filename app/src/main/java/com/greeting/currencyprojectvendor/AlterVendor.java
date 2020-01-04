@@ -290,6 +290,9 @@ public class AlterVendor extends AppCompatActivity {
 
             super.onPostExecute(s);
             b64 = s;
+            if(dataToConvert != null){
+                pf = dataToConvert;
+            }
         }
     }
 

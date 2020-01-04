@@ -231,6 +231,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_button"
                     android:text="上傳頭像" />
@@ -239,7 +240,9 @@
                     android:id="@+id/rotate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="0"
+                    android:background="@drawable/rounded_button"
                     android:text="旋轉頭像"
                     android:visibility="gone" />
 
