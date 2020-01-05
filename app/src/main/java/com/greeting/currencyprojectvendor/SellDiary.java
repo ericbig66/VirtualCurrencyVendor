@@ -38,7 +38,7 @@ public class SellDiary extends Fragment {
     private ArrayList<String> total = new ArrayList<>();
     private ArrayList<String> selldate = new ArrayList<>();
 
-    String acc;
+
     TextView dt;
     TableLayout tradeData;
 
@@ -55,7 +55,7 @@ public class SellDiary extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sell_diary, container, false);
-        acc = Login.acc;
+
         tradeData = view.findViewById(R.id.tradeData);
         pname.add("品名　　");
         pprice.add("單價　　");

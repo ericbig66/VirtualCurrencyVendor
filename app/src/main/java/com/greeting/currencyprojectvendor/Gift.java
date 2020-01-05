@@ -28,6 +28,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import static com.greeting.currencyprojectvendor.Login.acc;
 import static com.greeting.currencyprojectvendor.Login.pass;
 import static com.greeting.currencyprojectvendor.Login.url;
 import static com.greeting.currencyprojectvendor.Login.user;
@@ -42,7 +43,7 @@ public class Gift extends AppCompatActivity {
     Spinner DropDown;
     LinearLayout customInput;
     TextView actName;
-    final String acc =Login.acc;
+
 
     public void onBackPressed(){
         Aid.clear();
@@ -72,9 +73,9 @@ public class Gift extends AppCompatActivity {
                 else{
                     customInput.setVisibility(View.GONE);
                     BarcodeEncoder encoder = new BarcodeEncoder();
-                    Log.v("test",Login.acc+"fu02l," + Aid.get(position));
+                    Log.v("test",acc+"fu02l," + Aid.get(position));
                     try{
-                        Bitmap bit = encoder.encodeBitmap(Login.acc+"fu02l," +Aid.get(position)
+                        Bitmap bit = encoder.encodeBitmap(acc+"fu02l," +Aid.get(position)
                                 , BarcodeFormat.QR_CODE,1000,1000);
                         qrCode.setImageBitmap(bit);
                     }catch (WriterException e){
@@ -95,12 +96,12 @@ public class Gift extends AppCompatActivity {
 
     public void getCode(View v) {
         BarcodeEncoder encoder = new BarcodeEncoder();
-        Log.v("test",Login.acc+"cj/1l," +amount .getText().toString());
+        Log.v("test", acc+"cj/1l," +amount .getText().toString());
         if(amount.getText().toString().trim().isEmpty() || Integer.parseInt(amount.getText().toString().trim())<1){Toast.makeText(Gift.this,"請輸入紅包金額",Toast.LENGTH_LONG).show();}
         else{
 
             try{
-                Bitmap bit = encoder.encodeBitmap(Login.acc+"cj/1l," +amount .getText().toString()
+                Bitmap bit = encoder.encodeBitmap(acc+"cj/1l," +amount .getText().toString()
                         , BarcodeFormat.QR_CODE,1000,1000);
                 qrCode.setImageBitmap(bit);
             }catch (WriterException e){
@@ -134,7 +135,7 @@ public class Gift extends AppCompatActivity {
                 //建立查詢
                 String result = "";
                 Statement st = con.createStatement();
-                ResultSet rs = st.executeQuery("select activityNumber, activityName from activity where vacc = '"+Login.acc+"'");
+                ResultSet rs = st.executeQuery("select activityNumber, activityName from activity where vacc = '"+ acc+"'");
 
                 while (rs.next()) {
                     Aid.add(rs.getString("activityNumber"));

@@ -23,6 +23,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import static com.greeting.currencyprojectvendor.Login.acc;
 import static com.greeting.currencyprojectvendor.Login.pass;
 import static com.greeting.currencyprojectvendor.Login.url;
 import static com.greeting.currencyprojectvendor.Login.user;
@@ -55,9 +56,9 @@ public class Purchase extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 BarcodeEncoder encoder = new BarcodeEncoder();
-//                Log.v("test",Login.acc+"2jo4cj04," + Aid.get(position));
+//                Log.v("test",acc+"2jo4cj04," + Aid.get(position));
                 try{
-                    Bitmap bit = encoder.encodeBitmap(PID.get(position)+"2jo4cj04,"+Login.acc+"2jo4cj04,"+1
+                    Bitmap bit = encoder.encodeBitmap(PID.get(position)+"2jo4cj04,"+acc+"2jo4cj04,"+1
                             , BarcodeFormat.QR_CODE,1000,1000);
                     qrCode.setImageBitmap(bit);
                 }catch (WriterException e) {

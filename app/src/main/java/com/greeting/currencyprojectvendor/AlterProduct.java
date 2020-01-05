@@ -33,6 +33,9 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 
+import static com.greeting.currencyprojectvendor.Login.url;
+import static com.greeting.currencyprojectvendor.Login.pass;
+import static com.greeting.currencyprojectvendor.Login.user;
 import static com.greeting.currencyprojectvendor.MainMenu.PID;
 import static com.greeting.currencyprojectvendor.MainMenu.PIMG;
 import static com.greeting.currencyprojectvendor.MainMenu.Pamount;
@@ -45,9 +48,7 @@ import static com.greeting.currencyprojectvendor.MainMenu.vname;
 public class AlterProduct extends AppCompatActivity {
 
     //連接資料庫的IP、帳號(不可用root)、密碼
-    private static final String url = "jdbc:mysql://140.135.113.196:3360/virtualcurrencyproject";
-    private static final String user = "currency";
-    private static final String pass = "@SAclass";
+
 
     //array list已移至main menu
 

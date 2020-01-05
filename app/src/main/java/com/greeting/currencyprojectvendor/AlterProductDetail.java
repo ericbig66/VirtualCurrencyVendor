@@ -28,7 +28,6 @@ import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.greeting.currencyprojectvendor.Login.acc;
 import static com.greeting.currencyprojectvendor.Login.pass;
 import static com.greeting.currencyprojectvendor.Login.url;
 import static com.greeting.currencyprojectvendor.Login.user;
@@ -234,7 +233,7 @@ public class AlterProductDetail extends AppCompatActivity {
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
-            Toast.makeText(AlterProductDetail.this,"請稍後...",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(AlterProductDetail.this,"請稍後...",Toast.LENGTH_SHORT).show();
         }
         //查詢執行動作(不可使用與UI相關的指令)
         @Override

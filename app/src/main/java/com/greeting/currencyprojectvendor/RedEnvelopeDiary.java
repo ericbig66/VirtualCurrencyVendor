@@ -56,7 +56,6 @@ public class RedEnvelopeDiary extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        View view = inflater.inflate(R.layout.fragment_red_envelope_diary, container, false);
-        acc = Login.acc;
         tradeData = view.findViewById(R.id.tradeData);
         ioacc.add("對方帳戶　　");
         trade.add("交易方向　　");

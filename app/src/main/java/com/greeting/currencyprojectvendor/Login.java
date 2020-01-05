@@ -20,6 +20,8 @@ import java.sql.DriverManager;
 import java.sql.Types;
 
 public class Login extends AppCompatActivity {
+    //render bug resolver
+    public static int rc = 0;
 
     //連接資料庫的IP、帳號(不可用root)、密碼
     public static final String url = "jdbc:mysql://140.135.113.196:3360/virtualcurrencyproject";
@@ -153,7 +155,7 @@ public class Login extends AppCompatActivity {
             else{
                 data = result;
                 acc=account;
-                Toast.makeText(Login.this,"請稍後...", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(Login.this,"請稍後...", Toast.LENGTH_SHORT).show();
                 swmenu();
             }
 

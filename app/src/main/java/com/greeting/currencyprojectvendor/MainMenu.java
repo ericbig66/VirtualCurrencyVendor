@@ -19,8 +19,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 
+import static com.greeting.currencyprojectvendor.Login.pfr;
+import static com.greeting.currencyprojectvendor.Login.wcm;
+import static com.greeting.currencyprojectvendor.Login.acc;
 import static com.greeting.currencyprojectvendor.Login.pass;
 import static com.greeting.currencyprojectvendor.Login.pf;
+import static com.greeting.currencyprojectvendor.Login.rc;
 import static com.greeting.currencyprojectvendor.Login.url;
 import static com.greeting.currencyprojectvendor.Login.user;
 
@@ -29,7 +33,6 @@ public class MainMenu extends AppCompatActivity {
     Intent intent;
     ImageView profile;
     public static String vname="";
-    final String acc = Login.acc;
     int obp = 0; //times of on back pressed
 
     //寄放區
@@ -101,11 +104,12 @@ public class MainMenu extends AppCompatActivity {
         Timer timer = new Timer(true);
 
         if(obp>=2){
-            Login.wcm ="";
-            Login.acc ="";
+            wcm ="";
+            acc ="";
             Intent intent = new Intent(MainMenu.this, Login.class);
             startActivity(intent);
             pf = null;
+            rc = 0;
             finish();
         }
         else{
@@ -120,15 +124,15 @@ public class MainMenu extends AppCompatActivity {
 //        Intent intent = getIntent();
 //        String msg = intent.getStringExtra("msg");
 //        Log.v("test", "profile size = " + pf.getWidth()+"*"+pf.getHeight());
-        String msg = Login.wcm;
+        String msg = wcm;
         setContentView(R.layout.layout_main_menu);
         wmsg = findViewById(R.id.msg);
 //        wmsg.setText(msg);
-//        wmsg.setText(Login.wcm);
+//        wmsg.setText(wcm);
         profile = findViewById(R.id.profile);
         try {
             profile.setImageBitmap(pf);
-            profile.setRotation(Login.pfr);
+            profile.setRotation(pfr);
             Log.v("test", "profile size = " + pf.getWidth()+"*"+pf.getHeight());
         }catch (Exception e){
             Log.v("test","profile error = "+e.toString());
@@ -174,6 +178,7 @@ public class MainMenu extends AppCompatActivity {
         //查詢後的結果將回傳於此
         @Override
         protected void onPostExecute(String result) {
+            if(rc<=0){recreate();rc++;}
             wmsg.setText(result);
 //            Log.v("test","vname M = "+vname);
         }

@@ -28,15 +28,16 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Types;
 
+import static com.greeting.currencyprojectvendor.Login.url;
+import static com.greeting.currencyprojectvendor.Login.acc;
+import static com.greeting.currencyprojectvendor.Login.pass;
 import static com.greeting.currencyprojectvendor.Login.pf;
 import static com.greeting.currencyprojectvendor.Login.pfs;
+import static com.greeting.currencyprojectvendor.Login.user;
 import static com.greeting.currencyprojectvendor.MainMenu.vname;
 
 public class AlterVendor extends AppCompatActivity {
 
-    private static final String url = "jdbc:mysql://140.135.113.196:3360/virtualcurrencyproject";
-    private static final String user = "currency";
-    private static final String pass = "@SAclass";
     static final int OPEN_PIC = 1021;
 
     EditText name, em, pwd, chkpwd, phone, opwd;
@@ -179,7 +180,7 @@ public class AlterVendor extends AppCompatActivity {
                 Statement st = con.createStatement();
                 String result ="";
                 if(function == 0){
-                    ResultSet rs = st.executeQuery("select phone, profileRotate from vendor where mail = '"+Login.acc+"'");
+                    ResultSet rs = st.executeQuery("select phone, profileRotate from vendor where mail = '"+ acc+"'");
                     while (rs.next()){
                         result += rs.getString(1)+","+rs.getString(2);
                     }
@@ -187,7 +188,7 @@ public class AlterVendor extends AppCompatActivity {
                 }else{
                     CallableStatement cstmt = con.prepareCall("{call vlogin(?,?,?,?,?,?)}");
                     cstmt.registerOutParameter(1, Types.VARCHAR);//設定輸出變數(參數位置,參數型別)
-                    cstmt.setString(2, Login.acc);
+                    cstmt.setString(2, acc);
                     cstmt.setString(3,OPWD);
                     cstmt.registerOutParameter(4, Types.INTEGER);
                     cstmt.registerOutParameter(5, Types.LONGVARCHAR);
@@ -299,7 +300,7 @@ public class AlterVendor extends AppCompatActivity {
     public void autoFill(){
         String tmp[] = data.split(",");
         name.setText(vname);
-        em.setText(Login.acc);
+        em.setText(acc);
         phone.setText(tmp[0]);
         b64 = pfs;
         profile.setImageBitmap(pf);
