@@ -1,5 +1,7 @@
 package com.greeting.currencyprojectvendor;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -22,8 +24,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -31,56 +31,66 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Types;
 
+import static com.greeting.currencyprojectvendor.Login.acc;
 import static com.greeting.currencyprojectvendor.Login.pass;
 import static com.greeting.currencyprojectvendor.Login.url;
 import static com.greeting.currencyprojectvendor.Login.user;
-import static com.greeting.currencyprojectvendor.MainMenu.PID;
-import static com.greeting.currencyprojectvendor.MainMenu.PIMG;
-import static com.greeting.currencyprojectvendor.MainMenu.Pamount;
-import static com.greeting.currencyprojectvendor.MainMenu.Pname;
-import static com.greeting.currencyprojectvendor.MainMenu.Pprice;
-import static com.greeting.currencyprojectvendor.MainMenu.ReleseQuantity;
-import static com.greeting.currencyprojectvendor.MainMenu.SellId;
+import static com.greeting.currencyprojectvendor.MainMenu.AactDate;
+import static com.greeting.currencyprojectvendor.MainMenu.AactEnd;
+import static com.greeting.currencyprojectvendor.MainMenu.AactStart;
+import static com.greeting.currencyprojectvendor.MainMenu.Aamount;
+import static com.greeting.currencyprojectvendor.MainMenu.AamountLeft;
+import static com.greeting.currencyprojectvendor.MainMenu.Actpic;
+import static com.greeting.currencyprojectvendor.MainMenu.Adesc;
+import static com.greeting.currencyprojectvendor.MainMenu.Aendapp;
+import static com.greeting.currencyprojectvendor.MainMenu.Aid;
+import static com.greeting.currencyprojectvendor.MainMenu.Aname;
+import static com.greeting.currencyprojectvendor.MainMenu.Areward;
+import static com.greeting.currencyprojectvendor.MainMenu.Avendor;
+import static com.greeting.currencyprojectvendor.MainMenu.EventId;
+import static com.greeting.currencyprojectvendor.MainMenu.attended;
 import static com.greeting.currencyprojectvendor.MainMenu.vname;
+import static com.greeting.currencyprojectvendor.MainMenu.entryIsRecent;
 
-public class AlterProduct extends AppCompatActivity {
+public class RecentEvent extends AppCompatActivity {
 
-    //連接資料庫的IP、帳號(不可用root)、密碼
-
-
-    //array list已移至main menu
-
+    //array list 已移至 main menu
     int function = 0;
 
     LinearLayout ll;
     ScrollView sv;
     public static int cardCounter = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_alter_product);
+        setContentView(R.layout.layout_recent_event);
+        entryIsRecent = true;
 
         ll = findViewById(R.id.ll);
         sv = findViewById(R.id.sv);
 
         ConnectMySql connectMySql = new ConnectMySql();
         connectMySql.execute("");
+        
     }
 
     //建立連接與查詢非同步作業
     private class ConnectMySql extends AsyncTask<String, Void, String> {
-        String res="";//錯誤信息儲存變數
+        String res = "";//錯誤信息儲存變數
+
         //開始執行動作
         @Override
-        protected void onPreExecute(){
+        protected void onPreExecute() {
             super.onPreExecute();
-            Toast.makeText(AlterProduct.this,"請稍後...",Toast.LENGTH_SHORT).show();
+            Toast.makeText(RecentEvent.this, "請稍後...", Toast.LENGTH_SHORT).show();
         }
+
         //查詢執行動作(不可使用與UI相關的指令)
         @Override
         protected String doInBackground(String... strings) {
-            if(function == 0) {
+            if (function == 0) {
                 try {
                     //連接資料庫
                     Class.forName("com.mysql.jdbc.Driver");
@@ -88,17 +98,33 @@ public class AlterProduct extends AppCompatActivity {
                     //建立查詢
                     String result = "";
                     Statement st = con.createStatement();
-                    ResultSet rs = st.executeQuery("select * from product where vendor ='"+vname+"'");
+                    ResultSet rs = st.executeQuery("select * from activity where actDate> curDate()");
 
                     while (rs.next()) {
-                        PID.add(rs.getString("productID"));
-                        Pname.add(rs.getString("productName"));
-                        Pprice.add(rs.getInt("price"));
-                        Pamount.add(rs.getInt("amount"));
-                        PIMG.add(rs.getString("productIMG"));
+                        if(rs.getString("vendor").equals(vname)){
+                            Aid.add(rs.getString("activityNumber"));
+                            Aname.add(rs.getString("activityName"));
+                            Areward.add(rs.getInt("reward"));
+                            Aamount.add(rs.getInt("amount"));
+                            AamountLeft.add(rs.getInt("amountLeft"));
+                            Adesc.add(rs.getString("description"));
+                            Avendor.add(rs.getString("vendor"));
+                            Aendapp.add(rs.getDate("endApply"));
+                            AactDate.add(rs.getDate("actDate"));
+                            AactStart.add(rs.getTime("actStart"));
+                            AactEnd.add(rs.getTime("actEnd"));
+                            Actpic.add(rs.getString("actpic"));
+                        }
+
                     }
 
-                    return PID.size() + "";//回傳結果給onPostExecute==>取得輸出變數(位置)
+                    attended.clear();
+                    rs = st.executeQuery("select activity from attendlist where account = '" + acc + "'");
+                    while (rs.next()) {
+                        attended.add(rs.getString("activity"));
+                    }
+
+                    return Aname.size() + "";//回傳結果給onPostExecute==>取得輸出變數(位置)
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -107,28 +133,28 @@ public class AlterProduct extends AppCompatActivity {
                 return res;
             }
             ////////////////////////////////////////////
-            else if(function == 1){
+            else if (function == 1) {
                 try {
+
                     Class.forName("com.mysql.jdbc.Driver");
                     Connection con = DriverManager.getConnection(url, user, pass);
                     //建立查詢
-                    String result ="";
-                    //Statement st = con.createStatement();
-//                ResultSet rs = st.executeQuery("call login(@fname, '"+account+"', '"+password+"'); select @fname;");
-                    //experiment part start
-                    //此處呼叫Stored procedure(call 函數名稱(?)==>問號數量代表輸出、輸入的變數數量)
-                    CallableStatement cstmt = con.prepareCall("{call productChange(?,?,?,?,?,?,?)}");
-                    cstmt.setString(1,vname);//設定輸出變數(參數位置,參數型別)
-                    cstmt.setString(2,PID.get(SellId));
-                    cstmt.setString(3,Pname.get(SellId));
-                    cstmt.setInt(4,Pprice.get(SellId));
-                    cstmt.setInt(5,ReleseQuantity);
-                    cstmt.registerOutParameter(6, Types.VARCHAR);
-                    cstmt.setString(7, PIMG.get(SellId));
+                    String result = "";
+                    CallableStatement cstmt = con.prepareCall("{call createActivity(?,?,?,?,?,?,?,?,?,?,?,?)}");
+                    cstmt.setString(1, acc);
+                    cstmt.setString(2, Aname.get(EventId));
+                    cstmt.setInt(3, Areward.get(EventId));
+                    cstmt.setInt(4, AddAmount);
+                    cstmt.setString(5, Adesc.get(EventId));
+                    cstmt.setString(6, Aendapp.get(EventId).toString().replace("-", "/"));
+                    cstmt.setString(7, AactDate.get(EventId).toString().replace("-", "/"));
+                    cstmt.setString(8, AactStart.get(EventId).toString());
+                    cstmt.setString(9, AactEnd.get(EventId).toString());
+                    cstmt.setString(10, Actpic.get(EventId));
+                    cstmt.registerOutParameter(11, Types.VARCHAR);
+                    cstmt.setString(12, Aid.get(EventId));
                     cstmt.executeUpdate();
-                    Log.v("test","info updated:\nvname ="+vname+"\npid ="+PID.get(SellId)+"\npname ="+Pname.get(SellId)+"\nprice ="+Pprice.get(SellId)+"\nquantity ="+ReleseQuantity);
-                    return cstmt.getString("info");
-                    //experiment part end
+                    return cstmt.getString(11);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -136,42 +162,42 @@ public class AlterProduct extends AppCompatActivity {
                 }
                 return res;
             }
-            return null;
+            return res;
         }
         //查詢後的結果將回傳於此
         @Override
-        protected void onPostExecute(String result) {
-            try{
-                if(function == 0){
+        protected void onPostExecute (String result){
+            try {
+                if (function == 0) {
                     cardCounter = Integer.parseInt(result);
                     cardRenderer();
-                }
-                else if(function == 1){
-                    Toast.makeText(AlterProduct.this, result, Toast.LENGTH_SHORT).show();
+                } else if (function == 1) {
+                    Toast.makeText(RecentEvent.this, result, Toast.LENGTH_SHORT).show();
                     if(result.contains("成功")){
                         clear();
                         recreate();
                     }
                 }
                 function = -1;
-            }catch (Exception e){
-                Log.v("test","錯誤: "+e.toString());
+            } catch (Exception e) {
+                Log.v("test", "錯誤: " + e.toString());
             }
 
         }
+
     }
 
     //商品卡產生器
-    public void cardRenderer(){
-        for(int i = 0 ; i < PID.size() ; i++){
-            Log.v("test", "render card "+i);
+    public void cardRenderer() {
+        for (int i = 0; i < Aname.size(); i++) {
+            Log.v("test", "render card " + i);
             add(i);
         }
     }
 
 
     //產生商品卡
-    public void add(final int ID){
+    public void add(final int ID) {
         //商品卡片
         LinearLayout frame = new LinearLayout(this);
         LinearLayout.LayoutParams framep = new LinearLayout.LayoutParams(
@@ -180,52 +206,38 @@ public class AlterProduct extends AppCompatActivity {
         );
 
 
-        frame.setPadding(DP(15),DP(15),DP(15),DP(15));
-        framep.setMargins(0,0,0,DP(20));
+        frame.setPadding(DP(15), DP(15), DP(15), DP(15));
+        framep.setMargins(0, 0, 0, DP(20));
         frame.setOrientation(LinearLayout.HORIZONTAL);
         frame.setBackgroundColor(Color.parseColor("#D1FFDE"));
         frame.setLayoutParams(framep);
 
         //圖片&價格區
         LinearLayout picpri = new LinearLayout(this);
-        LinearLayout.LayoutParams picprip = new LinearLayout.LayoutParams(DP(120),DP(120));
-        picprip.setMargins(0,0,DP(5),0);
+        LinearLayout.LayoutParams picprip = new LinearLayout.LayoutParams(DP(120), DP(120));
+        picprip.setMargins(0, 0, DP(5), 0);
         picpri.setOrientation(LinearLayout.VERTICAL);
         picpri.setLayoutParams(picprip);
 
-        //數量
-        final EditText amount = new EditText(this);
-        LinearLayout.LayoutParams amountp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        amount.setEms(6);
-        amount.setHint("庫存:"+ Pamount.get(ID));
-        amount.setInputType(InputType.TYPE_CLASS_NUMBER);
-        amount.setLayoutParams(amountp);
-        amount.setId(5*ID+2);
-
         //商品圖片
         ImageView propic = new ImageView(this);
-        LinearLayout.LayoutParams propicp = new LinearLayout.LayoutParams(DP(120),DP(90));
+        LinearLayout.LayoutParams propicp = new LinearLayout.LayoutParams(DP(120), DP(90));
         //propic.setImageBitmap(Bitmap.createScaledBitmap(ConvertToBitmap(ID), 120, 90, false));
         propic.setImageBitmap(ConvertToBitmap(ID));
         propic.setScaleType(ImageView.ScaleType.CENTER_CROP);
-
         propic.setLayoutParams(propicp);
-        propic.setId(5*ID);
+        propic.setId(5 * ID);
         propic.setOnClickListener(v -> {
             final int id = ID;
-            if(amount.getText().toString().trim().isEmpty()){amount.setText("0");}
-            final int quantity = Integer.parseInt(amount.getText().toString());
             closekeybord();
-            identifier("D",id,quantity);
+            identifier("D", id,0);
         });
 
-        //商品價格
+        //獎勵金額
         TextView price = new TextView(this);
-        LinearLayout.LayoutParams pricep = new LinearLayout.LayoutParams(DP(120),DP(30));
-        price.setText("價格: $"+Pprice.get(ID));
+        LinearLayout.LayoutParams pricep = new LinearLayout.LayoutParams(DP(120), DP(30));
+        price.setText("時間:"+AactDate.get(ID).toString().substring(2));
+
         price.setTextSize(18f);
         price.setLayoutParams(picprip);
 
@@ -233,24 +245,24 @@ public class AlterProduct extends AppCompatActivity {
         LinearLayout proinf = new LinearLayout(this);
         LinearLayout.LayoutParams proinfp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,1f
+                LinearLayout.LayoutParams.WRAP_CONTENT, 1f
         );
         proinf.setOrientation(LinearLayout.VERTICAL);
         proinf.setLayoutParams(proinfp);
 
-        //商品名稱
+        //活動名稱
         TextView proname = new TextView(this);
         LinearLayout.LayoutParams pronamep = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
-        proname.setText(Pname.get(ID));
+        proname.setText(Aname.get(ID));
         proname.setTextSize(18f);
         proname.setClickable(true);
         proname.setLayoutParams(pronamep);
-        proname.setId(5*ID+1);
+        proname.setId(5 * ID + 1);
 
-        //購買資訊
+        //報名資訊
         LinearLayout buyinf = new LinearLayout(this);
         LinearLayout.LayoutParams buyinfp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -259,15 +271,26 @@ public class AlterProduct extends AppCompatActivity {
         buyinf.setOrientation(LinearLayout.HORIZONTAL);
         buyinf.setLayoutParams(buyinfp);
 
-        //數量:[標籤]
+        //剩餘名額
         TextView amount_label = new TextView(this);
         LinearLayout.LayoutParams amount_labelp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
-        amount_label.setText("數量：");
+        amount_label.setText("新增名額:");
         amount_label.setTextSize(18f);
         amount_label.setLayoutParams(amount_labelp);
+
+        //新增名額輸入處
+        EditText amount_add = new EditText(this);
+        LinearLayout.LayoutParams amountp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        amount_add.setHint("餘額:" + AamountLeft.get(ID));
+        amount_add.setTextSize(18f);
+        amount_add.setInputType(InputType.TYPE_CLASS_NUMBER);
+        amount_add.setLayoutParams(amountp);
 
         //按鈕箱
         LinearLayout btnbox = new LinearLayout(this);
@@ -278,44 +301,42 @@ public class AlterProduct extends AppCompatActivity {
         btnbox.setLayoutParams(btnboxp);
 
 
-        //詳情按鈕
+        //修改按鈕
         Button detail = new Button(this);
         LinearLayout.LayoutParams detailp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,0.5f
+                LinearLayout.LayoutParams.WRAP_CONTENT, 0.5f
         );
         detailp.setMarginEnd(20);
         detail.setText("修改");
         detail.setTextSize(18f);
         detail.setBackgroundResource(R.drawable.rounded_button_pink);
         detail.setLayoutParams(detailp);
-        detail.setId(5*ID+3);
+        detail.setId(5 * ID + 3);
         detail.setOnClickListener(v -> {
             final int id = ID;
-            if(amount.getText().toString().trim().isEmpty()){amount.setText("0");}
-            final int quantity = Integer.parseInt(amount.getText().toString());
             closekeybord();
-            identifier("D",id,quantity);
-            amount.setText("");
+            identifier("D", id, 0);
         });
 
-        //訂購按鈕
+        //新增按鈕
         Button buybtn = new Button(this);
         LinearLayout.LayoutParams buybtnp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,0.5f
+                LinearLayout.LayoutParams.WRAP_CONTENT, 0.5f
         );
-        buybtn.setText("上架");
+        buybtn.setText("新增");
         buybtn.setTextSize(18f);
         buybtn.setBackgroundResource(R.drawable.rounded_button_pink);
         buybtn.setLayoutParams(buybtnp);
-        buybtn.setId(5*ID+4);
+        buybtn.setId(5 * ID + 4);
         buybtn.setOnClickListener(v -> {
+//            if(buybtn.getText().toString().equals("參加")){buybtn.setText("取消報名");}
+//            else{buybtn.setText("參加");}
             final int id = ID;
-            if(amount.getText().toString().trim().isEmpty()){amount.setText("0");}
-            final int quantity = Integer.parseInt(amount.getText().toString());
+            if(amount_add.getText().toString().trim().isEmpty()){amount_add.setText("0");}
             closekeybord();
-            identifier("R",id,quantity);
+            identifier("B", id, Integer.parseInt(amount_add.getText().toString()));
         });
 
         //將內容填入frame
@@ -333,7 +354,7 @@ public class AlterProduct extends AppCompatActivity {
         */
         proinf.addView(proname);
         buyinf.addView(amount_label);
-        buyinf.addView(amount);
+        buyinf.addView(amount_add);
         proinf.addView(buyinf);
         btnbox.addView(detail);
         btnbox.addView(buybtn);
@@ -343,86 +364,94 @@ public class AlterProduct extends AppCompatActivity {
         frame.addView(picpri);
         frame.addView(proinf);
         ll.addView(frame);
-        Log.v("test","card"+ID+"rendered");
+        Log.v("test", "card" + ID + "rendered");
     }
 
-    //將dp轉換為px
-    public static int DP(float dp){
+    public static int DP(float dp) {
         dp = dp * ((float) Resources.getSystem().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-        return (int)dp;
+        return (int) dp;
     }
+
+    int AddAmount = 0;
     /////////////////////////////////////////////
-    public void identifier(String act, int ID,int quantity){
-        if(act.equals("D")){
-            //Log.v("test","您正在檢視第"+Pname.get(ID)+"的詳細資料");
-            SellId=ID;
-            Intent intent = new Intent(AlterProduct.this,AlterProductDetail.class);
+    public void identifier(String act, int ID, int quantity) {
+        EventId = ID;
+        if (act.equals("D")) {
+            Log.v("test", "您正在檢視第" + Aname.get(ID) + "的詳細資料");
+            Intent intent = new Intent(RecentEvent.this, AlterEventDetail.class);
             startActivity(intent);
-        }else if(act.equals("R")){
-            //Log.v("test","您購買了"+quantity+"個"+Pname.get(ID));
+        } else if (act.equals("B")) {
+            Log.v("test", "您報名了==>" + Aname.get(ID));
             function = 1;
-            SellId = ID;
-            ReleseQuantity = quantity;
-            if(quantity>0){
+            if(quantity>0) {
+                AddAmount = Aamount.get(EventId)+quantity;
                 ConnectMySql connectMySql = new ConnectMySql();
                 connectMySql.execute("");
             }else{
-                function = -1;
-                Toast.makeText(AlterProduct.this,"請至少上架一項商品",Toast.LENGTH_SHORT).show();
+                Toast.makeText(RecentEvent.this,"請至少新增一個名額",Toast.LENGTH_SHORT).show();
             }
+
         }
+    }
+
+    public void clear() {
+        Aid.clear();
+        Aname.clear();
+        Areward.clear();
+        Aamount.clear();
+        AamountLeft.clear();
+        Adesc.clear();
+        Avendor.clear();
+        Aendapp.clear();
+        AactDate.clear();
+        AactStart.clear();
+        AactEnd.clear();
+        Actpic.clear();
+        attended.clear();
     }
 
     //隱藏鍵盤
     public void closekeybord() {
         View view = this.getCurrentFocus();
-        if(view != null){
+        if (view != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(),0);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
-    public void clear(){
-        PID.clear();
-        Pname.clear();
-        Pprice.clear();
-        Pamount.clear();
-        PIMG.clear();
-    }
-
-    public void onBackPressed(){
-        Intent intent = new Intent(AlterProduct.this, MainMenu.class);
+    public void onBackPressed() {
+        Intent intent = new Intent(RecentEvent.this, MainMenu.class);
         startActivity(intent);
         clear();
         finish();
     }
 
-    public Bitmap ConvertToBitmap(int ID){
-        try{
+
+    public Bitmap ConvertToBitmap(int ID) {
+        try {
 //            Log.v("test",PIMG.get(ID));
-            byte[] imageBytes = Base64.decode(PIMG.get(ID), Base64.DEFAULT);
+            byte[] imageBytes = Base64.decode(Actpic.get(ID), Base64.DEFAULT);
             Bitmap proimg = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
             int w = proimg.getWidth();
             int h = proimg.getHeight();
-            Log.v("test","pic"+ID+" original = "+w+"*"+h);
+            Log.v("test", "pic" + ID + " original = " + w + "*" + h);
             int scale = 1;
-            if(w>h && (w/120)>1 || h==w && (w/120)>1){
-                scale = w/120;
-                w = w/scale;
-                h = h/scale;
-            }else if(h>w && (h/120)>1){
-                scale = h/120;
-                w = w/scale;
-                h = h/scale;
+            if (w > h && (w / DP(120)) > 1 || h == w && (w / DP(120)) > 1) {
+                scale = w / DP(120);
+                w = w / scale;
+                h = h / scale;
+            } else if (h > w && (h / DP(120)) > 1) {
+                scale = h / DP(120);
+                w = w / scale;
+                h = h / scale;
             }
-            Log.v("test","pic"+ID+" resized = "+w+"*"+h);
+            Log.v("test", "pic" + ID + " resized = " + w + "*" + h);
             proimg = Bitmap.createScaledBitmap(proimg, w, h, false);
             return proimg;
-        }catch (Exception e){
-            Log.v("test","error = "+e.toString());
+        } catch (Exception e) {
+            Log.v("test", "error = " + e.toString());
             return null;
         }
-
-
     }
+    
 }

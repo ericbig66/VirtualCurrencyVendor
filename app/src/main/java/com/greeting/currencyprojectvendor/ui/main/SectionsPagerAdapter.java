@@ -1,6 +1,7 @@
 package com.greeting.currencyprojectvendor.ui.main;
 
 import android.content.Context;
+import android.util.EventLog;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.greeting.currencyprojectvendor.EventAttendList;
 import com.greeting.currencyprojectvendor.R;
 import com.greeting.currencyprojectvendor.RedEnvelopeDiary;
 import com.greeting.currencyprojectvendor.SellDiary;
@@ -20,7 +22,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
     //頁面名稱
-    private static final int[] TAB_TITLES = new int[]{R.string.Sell, R.string.RedEnvelop};
+    private static final int[] TAB_TITLES = new int[]{R.string.Sell, R.string.RedEnvelop, R.string.AttendList};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -38,6 +40,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return SellDiary.newInstance();
             case 1:
                 return RedEnvelopeDiary.newInstance();
+            case 2:
+                return EventAttendList.newInstance();
             default:
                 return null;
         }
@@ -52,6 +56,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 2 total pages.
-        return 2;
+        return 3;
     }
 }

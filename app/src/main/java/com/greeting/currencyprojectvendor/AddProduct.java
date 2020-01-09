@@ -1,8 +1,5 @@
 package com.greeting.currencyprojectvendor;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -16,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.sql.CallableStatement;
@@ -32,7 +32,7 @@ public class AddProduct extends AppCompatActivity {
 
     EditText pid, pname, Pprice, stock;
     ImageView propic;
-    Button loadpic, rotate, submit;
+    Button loadpic, submit;
 
     final int OPEN_PIC = 1021;
     String PID = "", PNAME = "", b64 = "";

@@ -1,28 +1,36 @@
 package com.greeting.currencyprojectvendor;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.Types;
 
 public class Login extends AppCompatActivity {
     //render bug resolver
     public static int rc = 0;
-
+    final float VERSION = 0.3f;
+    float newver;
     //連接資料庫的IP、帳號(不可用root)、密碼
     public static final String url = "jdbc:mysql://140.135.113.196:3360/virtualcurrencyproject";
     public static final String user = "currency";
@@ -84,6 +92,99 @@ public class Login extends AppCompatActivity {
             myacc.setText(null);
             pwd.setText(null);
         });
+
+        CheckUpdate checkUpdate = new CheckUpdate();
+        checkUpdate.execute("");
+    }
+
+    public void updateAlert(){
+        //建立更新資訊提示
+        AlertDialog.Builder newver = new AlertDialog.Builder(this);
+        newver.setTitle("請更新至最新版");
+        newver.setMessage("為了您的帳戶安全，請點選下載更新以更新至最新(V"+newver+")\n若您無法更新或不會更新，您可以撥打0800 000 123 詢問客服人員");
+        // Add the buttons
+        newver.setPositiveButton(R.string.update, (dialog, id) -> {
+            // User clicked OK button
+            Log.v("test","即將更新");
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://chen1998.yabi.me/vendor.apk"));
+            startActivity(browserIntent);
+        });
+        newver.setNegativeButton(R.string.leave, (dialog, id) -> {
+            // User cancelled the dialog
+            Log.v("test", "即將離開系統");
+            finish();
+        });
+
+        // Create the AlertDialog
+        AlertDialog dialog = newver.create();
+        closekeybord();
+        dialog.show();
+    }
+
+    //隱藏鍵盤
+    public void closekeybord() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    //建立連接與查詢非同步作業(檢查更新)
+    private class CheckUpdate extends AsyncTask<String, Void, String> {
+        String res="";//錯誤信息儲存變數
+
+        //開始執行動作
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+            Toast.makeText(Login.this,"正在檢查更新...",Toast.LENGTH_SHORT).show();
+        }
+        //查詢執行動作(不可使用與UI相關的指令)
+        @Override
+        protected String doInBackground(String... strings) {
+            try{
+                //連接資料庫
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection con = DriverManager.getConnection(url, user, pass);
+                //建立查詢
+                String result ="";
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery("select ver from ven_version ORDER BY ver DESC");
+                rs.next();
+                result = rs.getString("ver");
+                Log.v("test","current ven_version = "+rs.getString("ver"));
+                if(Float.parseFloat(result)<VERSION){
+                    newver = rs.getFloat("ver");
+                    Connection con2 = DriverManager.getConnection(url, user, pass);
+                    //建立查詢
+                    Statement st2 = con.createStatement();
+                    st2.execute("insert into ven_version(ver,ReleaseDate) values("+VERSION+", now())");
+                }
+                return rs.getFloat("ver")+"";
+            }catch (Exception e){
+//                res = result;
+                e.printStackTrace();
+                res = e.toString();
+            }
+            return res;
+        }
+        //查詢後的結果將回傳於此
+        @Override
+        protected void onPostExecute(String result) {
+            Float ver = -1f;
+            try {
+                ver = Float.parseFloat(result.trim());
+                if(VERSION<ver){
+                    updateAlert();
+                }else{
+                    Log.v("test", "no new update detected!!");
+                }
+            }catch(Exception e){
+                Log.v("test", "ven_version check error = " + e.toString());
+            }
+
+        }
     }
 
     public void ConvertToBitmap(){

@@ -1,7 +1,5 @@
 package com.greeting.currencyprojectvendor;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -19,14 +19,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 
-import static com.greeting.currencyprojectvendor.Login.pfr;
-import static com.greeting.currencyprojectvendor.Login.wcm;
 import static com.greeting.currencyprojectvendor.Login.acc;
 import static com.greeting.currencyprojectvendor.Login.pass;
 import static com.greeting.currencyprojectvendor.Login.pf;
+import static com.greeting.currencyprojectvendor.Login.pfr;
 import static com.greeting.currencyprojectvendor.Login.rc;
 import static com.greeting.currencyprojectvendor.Login.url;
 import static com.greeting.currencyprojectvendor.Login.user;
+import static com.greeting.currencyprojectvendor.Login.wcm;
 
 public class MainMenu extends AppCompatActivity {
     TextView wmsg;
@@ -62,7 +62,7 @@ public class MainMenu extends AppCompatActivity {
     public static ArrayList<String> attended = new ArrayList<>();
 
     public static int EventId = -1;
-
+    public static boolean entryIsRecent = false;
 
     //測試用變數
     public static ArrayList<String> TMP = new ArrayList<>();
@@ -94,6 +94,12 @@ public class MainMenu extends AppCompatActivity {
                 break;
             case R.id.alter_vendor:
                 intent = new Intent(MainMenu.this,AlterVendor.class);
+                break;
+            case R.id.contact:
+                intent = new Intent(MainMenu.this,contactUs.class);
+                break;
+            case R.id.recent:
+                intent = new Intent(MainMenu.this,RecentEvent.class);
                 break;
         }
         startActivity(intent);

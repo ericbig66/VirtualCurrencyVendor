@@ -1,28 +1,22 @@
 package com.greeting.currencyprojectvendor;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.loader.content.CursorLoader;
-
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
 
@@ -31,14 +25,14 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Types;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
+import static com.greeting.currencyprojectvendor.Login.pass;
+import static com.greeting.currencyprojectvendor.Login.url;
+import static com.greeting.currencyprojectvendor.Login.user;
 
 public class Register extends AppCompatActivity {
 
-    private static final String url = "jdbc:mysql://140.135.113.196:3360/virtualcurrencyproject";
-    private static final String user = "currency";
-    private static final String pass = "@SAclass";
+
     static final int OPEN_PIC = 1021;
 
     EditText name, em, pwd, chkpwd, phone;

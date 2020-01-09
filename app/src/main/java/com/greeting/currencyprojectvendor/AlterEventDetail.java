@@ -1,8 +1,5 @@
 package com.greeting.currencyprojectvendor;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,15 +16,16 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Time;
 import java.sql.Types;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,15 +47,9 @@ import static com.greeting.currencyprojectvendor.MainMenu.Aid;
 import static com.greeting.currencyprojectvendor.MainMenu.Aname;
 import static com.greeting.currencyprojectvendor.MainMenu.Areward;
 import static com.greeting.currencyprojectvendor.MainMenu.Avendor;
-import static com.greeting.currencyprojectvendor.MainMenu.PID;
-import static com.greeting.currencyprojectvendor.MainMenu.PIMG;
-import static com.greeting.currencyprojectvendor.MainMenu.Pamount;
-import static com.greeting.currencyprojectvendor.MainMenu.Pname;
-import static com.greeting.currencyprojectvendor.MainMenu.Pprice;
-import static com.greeting.currencyprojectvendor.MainMenu.ReleseQuantity;
 import static com.greeting.currencyprojectvendor.MainMenu.EventId;
 import static com.greeting.currencyprojectvendor.MainMenu.attended;
-import static com.greeting.currencyprojectvendor.MainMenu.vname;
+import static com.greeting.currencyprojectvendor.MainMenu.entryIsRecent;
 
 public class AlterEventDetail extends AppCompatActivity {
 
@@ -173,8 +165,14 @@ public class AlterEventDetail extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(AlterEventDetail.this,AlterEvent.class);
+        Intent intent;
+        if(entryIsRecent){
+            intent = new Intent(AlterEventDetail.this,RecentEvent.class);
+        }else{
+            intent = new Intent(AlterEventDetail.this,AlterEvent.class);
+        }
         startActivity(intent);
+        entryIsRecent = false;
         clear();
         finish();
     }

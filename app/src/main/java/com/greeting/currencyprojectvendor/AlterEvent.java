@@ -1,7 +1,5 @@
 package com.greeting.currencyprojectvendor;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -24,14 +22,14 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Types;
-import java.util.ArrayList;
-import java.util.Date;
 
 import static com.greeting.currencyprojectvendor.Login.acc;
 import static com.greeting.currencyprojectvendor.Login.pass;
@@ -116,7 +114,7 @@ public class AlterEvent extends AppCompatActivity {
                     }
 
                     attended.clear();
-                    rs = st.executeQuery("select activity from attendlist where account = '" + Login.acc + "'");
+                    rs = st.executeQuery("select activity from attendlist where account = '" + acc + "'");
                     while (rs.next()) {
                         attended.add(rs.getString("activity"));
                     }
@@ -206,7 +204,7 @@ public class AlterEvent extends AppCompatActivity {
             frame.setPadding(DP(15), DP(15), DP(15), DP(15));
             framep.setMargins(0, 0, 0, DP(20));
             frame.setOrientation(LinearLayout.HORIZONTAL);
-            frame.setBackgroundColor(Color.WHITE);
+            frame.setBackgroundColor(Color.parseColor("#D1FFDE"));
             frame.setLayoutParams(framep);
 
             //圖片&價格區
@@ -303,7 +301,9 @@ public class AlterEvent extends AppCompatActivity {
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT, 0.5f
             );
+            detailp.setMarginEnd(20);
             detail.setText("修改");
+            detail.setBackgroundResource(R.drawable.rounded_button_pink);
             detail.setTextSize(18f);
             detail.setLayoutParams(detailp);
             detail.setId(5 * ID + 3);
@@ -321,6 +321,7 @@ public class AlterEvent extends AppCompatActivity {
             );
             buybtn.setText("新增");
             buybtn.setTextSize(18f);
+            buybtn.setBackgroundResource(R.drawable.rounded_button_pink);
             buybtn.setLayoutParams(buybtnp);
             buybtn.setId(5 * ID + 4);
             buybtn.setOnClickListener(v -> {

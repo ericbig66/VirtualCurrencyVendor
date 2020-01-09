@@ -4,24 +4,25 @@ package com.greeting.currencyprojectvendor;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import static com.greeting.currencyprojectvendor.Login.pass;
+import static com.greeting.currencyprojectvendor.Login.url;
+import static com.greeting.currencyprojectvendor.Login.user;
 
 
 /**
@@ -30,9 +31,7 @@ import java.util.ArrayList;
 public class RedEnvelopeDiary extends Fragment {
 
     //連接資料庫的IP、帳號(不可用root)、密碼
-    private static final String url = "jdbc:mysql://140.135.113.196:3360/virtualcurrencyproject";
-    private static final String user = "currency";
-    private static final String pass = "@SAclass";
+
 
     private ArrayList<String> ioacc  = new ArrayList<>();
     private ArrayList<String> trade  = new ArrayList<>();

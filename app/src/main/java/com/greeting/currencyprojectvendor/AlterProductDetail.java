@@ -1,8 +1,5 @@
 package com.greeting.currencyprojectvendor;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,6 +17,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.ByteArrayOutputStream;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -39,7 +40,6 @@ import static com.greeting.currencyprojectvendor.MainMenu.Pprice;
 import static com.greeting.currencyprojectvendor.MainMenu.ReleseQuantity;
 import static com.greeting.currencyprojectvendor.MainMenu.SellId;
 import static com.greeting.currencyprojectvendor.MainMenu.vname;
-import static com.greeting.currencyprojectvendor.Register.OPEN_PIC;
 
 public class AlterProductDetail extends AppCompatActivity {
 

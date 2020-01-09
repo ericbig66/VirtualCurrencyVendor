@@ -17,7 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Purchase"></activity>
+        <activity android:name=".RecentEvent"></activity>
+        <activity android:name=".contactUs" />
+        <activity android:name=".Purchase" />
         <activity android:name=".AlterVendor" />
         <activity android:name=".AlterEventDetail" />
         <activity android:name=".AlterProductDetail" />
