@@ -29,7 +29,7 @@ import java.sql.Types;
 public class Login extends AppCompatActivity {
     //render bug resolver
     public static int rc = 0;
-    final float VERSION = 0.3f;
+    final float VERSION = 0.4f;
     float newver;
     //連接資料庫的IP、帳號(不可用root)、密碼
     public static final String url = "jdbc:mysql://140.135.113.196:3360/virtualcurrencyproject";
@@ -176,6 +176,7 @@ public class Login extends AppCompatActivity {
             try {
                 ver = Float.parseFloat(result.trim());
                 if(VERSION<ver){
+                    newver = ver;
                     updateAlert();
                 }else{
                     Log.v("test", "no new update detected!!");

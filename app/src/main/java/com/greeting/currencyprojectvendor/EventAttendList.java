@@ -10,6 +10,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -38,7 +42,8 @@ public class EventAttendList extends Fragment {
     private ArrayList<String> Name = new ArrayList<>();
     private ArrayList<String> Sign = new ArrayList<>();
 
-    public EventAttendList() {
+    private ArrayList<String> catagory = new ArrayList<>();
+    public EventAttendList(){
         // Required empty public constructor
     }
 
@@ -46,6 +51,7 @@ public class EventAttendList extends Fragment {
         return new EventAttendList();
     }
 
+    Spinner chooser;
     TableLayout tradeData;
 
     @Override
@@ -53,9 +59,11 @@ public class EventAttendList extends Fragment {
                              Bundle savedInstanceState) {
         TextView textView = new TextView(getActivity());
 
-        View view = inflater.inflate(R.layout.fragment_sell_diary,container, false);
+        View view = inflater.inflate(R.layout.fragment_red_envelope_diary,container, false);
         clear();
         tradeData = view.findViewById(R.id.tradeData);
+        chooser = view.findViewById(R.id.chooser);
+
         Aname.add("活動名稱　");
         Mail.add("客戶帳號　");
         Name.add("客戶姓名　");
@@ -63,6 +71,19 @@ public class EventAttendList extends Fragment {
 
         ConnectMySql connectMySql = new ConnectMySql();
         connectMySql.execute("");
+
+        chooser.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                renderTable(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         return view;
 
     }
@@ -95,6 +116,14 @@ public class EventAttendList extends Fragment {
                     Name.add(rs.getString("L_name")+star+"　");
                     Sign.add(rs.getString("signTime"));
                 }
+
+
+                Statement st2 = con.createStatement();
+                ResultSet rs2 = st2.executeQuery("select distinct activityName from activity where vacc = '"+acc+"'");
+                while (rs2.next()){
+                    catagory.add(rs2.getString("activityName"));
+                }
+
                 return "0";
             }catch (Exception e){
                 e.printStackTrace();
@@ -105,36 +134,44 @@ public class EventAttendList extends Fragment {
         //查詢後的結果將回傳於此
         @Override
         protected void onPostExecute(String result) {
-            Log.v("test","YOUR RESULT ="+result);
-            renderTable();
+            ArrayAdapter<String> actName= new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, catagory);
+            actName.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            chooser.setAdapter(actName);
+
+//            Log.v("test","YOUR RESULT ="+result);
+//            renderTable();
         }
-        private void renderTable(){
-            for(int row = 0 ; row < Aname.size() ; row++ ){
+    }
+
+    private void renderTable(int position){
+        tradeData.removeAllViews();
+        for(int row = 0 ; row < Aname.size() ; row++ ){
+            Log.v("test",Aname.get(row)+" = "+catagory.get(position) +"==>"+ Aname.get(row).equals(catagory.get(position)));
+            if (!Aname.get(row).equals(catagory.get(position)+"　") && row!=0){continue;}
 //                Toast.makeText(Diary.this,"第"+row+"列建構中",Toast.LENGTH_SHORT).show();
-                //新增一列
-                TableRow tr = new TableRow(getActivity());
-                //新增一個TextView
-                TextView t1 = new TextView(getActivity());
-                TextView t2 = new TextView(getActivity());
-                TextView t3 = new TextView(getActivity());
-                TextView t4 = new TextView(getActivity());
-                //設定TextView的文字
-                t1.setText(Aname.get(row));
-                t2.setText(Mail.get(row));
+            //新增一列
+            TableRow tr = new TableRow(getActivity());
+            //新增一個TextView
+            TextView t1 = new TextView(getActivity());
+            TextView t2 = new TextView(getActivity());
+            TextView t3 = new TextView(getActivity());
+            TextView t4 = new TextView(getActivity());
+            //設定TextView的文字
+            t1.setText(Aname.get(row));
+            t2.setText(Mail.get(row));
 //                Log.v("test",trade.get(row));
-                t3.setText(Name.get(row));
-                t4.setText(Sign.get(row));
-                //將TextView放入列
-                tr.addView(t1);
-                tr.addView(t2);
-                tr.addView(t3);
-                tr.addView(t4);
-                //將整列加入預先建立的TableLayout中
-                tradeData.addView(tr,new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-            }
+            t3.setText(Name.get(row));
+            t4.setText(Sign.get(row));
+            //將TextView放入列
+            tr.addView(t1);
+            tr.addView(t2);
+            tr.addView(t3);
+            tr.addView(t4);
+            //將整列加入預先建立的TableLayout中
+            tradeData.addView(tr,new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         }
+
     }
 
     public void clear(){

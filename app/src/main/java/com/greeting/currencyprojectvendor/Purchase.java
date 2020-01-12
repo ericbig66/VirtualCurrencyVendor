@@ -1,12 +1,17 @@
 package com.greeting.currencyprojectvendor;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -36,10 +41,15 @@ public class Purchase extends AppCompatActivity {
     ImageView qrCode;
     Spinner DropDown;
     TextView actName;
+    EditText amount;
+    Button submit;
+    int pos =0;
 
     public void onBackPressed(){
         Intent intent = new Intent(Purchase.this, MainMenu.class);
         startActivity(intent);
+        PID.clear();
+        Pname.clear();
         finish();
     }
 
@@ -51,20 +61,27 @@ public class Purchase extends AppCompatActivity {
         qrCode = findViewById(R.id.qrCode);
         DropDown = findViewById(R.id.DropDown);
         actName = findViewById(R.id.actName);
+        amount = findViewById(R.id.amount);
+        submit = findViewById(R.id.submit);
+
+
+
+        submit.setOnClickListener(v -> {
+            if(amount.getText().toString().trim().isEmpty() || Integer.parseInt(amount.getText().toString())<1){
+                Toast.makeText(Purchase.this,"請輸入正確的數量",Toast.LENGTH_SHORT);
+            }else{
+                GenerateCode(pos);
+                closekeybord();
+                qrCode.setVisibility(View.VISIBLE);
+            }
+        });
 
         DropDown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                BarcodeEncoder encoder = new BarcodeEncoder();
-//                Log.v("test",acc+"2jo4cj04," + Aid.get(position));
-                try{
-                    Bitmap bit = encoder.encodeBitmap(PID.get(position)+"2jo4cj04,"+acc+"2jo4cj04,"+1
-                            , BarcodeFormat.QR_CODE,1000,1000);
-                    qrCode.setImageBitmap(bit);
-                }catch (WriterException e) {
-                    e.printStackTrace();
-                    actName.setText("掃描我兌換"+Pname.get(position));
-                }
+                actName.setText("掃描我兌換"+Pname.get(position));
+                qrCode.setVisibility(View.GONE);
+                pos = position;
             }
 
             @Override
@@ -76,6 +93,18 @@ public class Purchase extends AppCompatActivity {
         ConnectMySql connectMySql = new ConnectMySql();
         connectMySql.execute("");
     }
+
+    public void GenerateCode(int position){
+        BarcodeEncoder encoder = new BarcodeEncoder();
+        try{
+            Bitmap bit = encoder.encodeBitmap((PID.get(position) + "2jo4cj04," + acc + "2jo4cj04," + Integer.parseInt(amount.getText().toString()))
+                    , BarcodeFormat.QR_CODE,1000,1000);
+            qrCode.setImageBitmap(bit);
+        }catch (WriterException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     //建立連接與查詢非同步作業
     private class ConnectMySql extends AsyncTask<String, Void, String> {
@@ -98,8 +127,8 @@ public class Purchase extends AppCompatActivity {
                 Connection con = DriverManager.getConnection(url, user, pass);
                 //建立查詢
                 Statement st = con.createStatement();
-                ResultSet rs = st.executeQuery("select productID, productName from product where vendor = '"+vname+"'");
-
+                ResultSet rs = st.executeQuery("select productID, productName from product where vendor = '"+vname+"' and amount > 0");
+                Log.v("test", "select productID, productName from product where vendor = '"+vname+"' and amount > 0");
                 while (rs.next()) {
                     PID.add(rs.getString(1));
                     Pname.add(rs.getString(2));
@@ -121,4 +150,14 @@ public class Purchase extends AppCompatActivity {
         }
 
     }
+
+    //隱藏鍵盤
+    public void closekeybord() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
 }

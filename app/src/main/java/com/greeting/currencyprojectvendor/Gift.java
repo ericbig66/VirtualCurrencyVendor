@@ -1,11 +1,15 @@
 package com.greeting.currencyprojectvendor;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -62,14 +66,33 @@ public class Gift extends AppCompatActivity {
         customInput = findViewById(R.id.customInput);
         actName = findViewById(R.id.actName);
 
+        amount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                qrCode.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         DropDown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position == Aname.size()-1){
                     customInput.setVisibility(View.VISIBLE);
+                    qrCode.setVisibility(View.GONE);
                 }
                 else{
                     customInput.setVisibility(View.GONE);
+                    qrCode.setVisibility(View.VISIBLE);
                     BarcodeEncoder encoder = new BarcodeEncoder();
                     Log.v("test",acc+"fu02l," + Aid.get(position));
                     try{
@@ -102,6 +125,8 @@ public class Gift extends AppCompatActivity {
                 Bitmap bit = encoder.encodeBitmap(acc+"cj/1l," +amount .getText().toString()
                         , BarcodeFormat.QR_CODE,1000,1000);
                 qrCode.setImageBitmap(bit);
+                closekeybord();
+                qrCode.setVisibility(View.VISIBLE);
             }catch (WriterException e){
                 e.printStackTrace();
             }
@@ -133,8 +158,8 @@ public class Gift extends AppCompatActivity {
                 //建立查詢
                 String result = "";
                 Statement st = con.createStatement();
-                ResultSet rs = st.executeQuery("select activityNumber, activityName from activity where vacc = '"+ acc+"'");
-
+                ResultSet rs = st.executeQuery("select activityNumber, activityName from activity where vacc = '"+ acc+"' and actDate = curDate()");
+//                Log.v("test","select activityNumber, activityName from activity where vacc = '"+ acc+"' and actDate = curDate()");
                 while (rs.next()) {
                     Aid.add(rs.getString("activityNumber"));
                     Aname.add(rs.getString("activityName"));
@@ -157,6 +182,15 @@ public class Gift extends AppCompatActivity {
             DropDown.setAdapter(adapter);
         }
 
+    }
+
+    //隱藏鍵盤
+    public void closekeybord() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
 }

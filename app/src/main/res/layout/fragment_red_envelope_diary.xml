@@ -14,9 +14,19 @@
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/melon" />
 
+    <Spinner
+        android:id="@+id/chooser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:spinnerMode="dialog" />
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/chooser">
 
         <LinearLayout
             android:layout_width="match_parent"

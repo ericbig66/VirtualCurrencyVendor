@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import static com.greeting.currencyprojectvendor.Login.acc;
 import static com.greeting.currencyprojectvendor.Login.pass;
 import static com.greeting.currencyprojectvendor.Login.url;
 import static com.greeting.currencyprojectvendor.Login.user;
@@ -38,7 +39,6 @@ public class RedEnvelopeDiary extends Fragment {
     private ArrayList<String> amount = new ArrayList<>();
     private ArrayList<String> remain = new ArrayList<>();
 
-    String acc;
     TextView dt;
     TableLayout tradeData;
 
@@ -54,7 +54,7 @@ public class RedEnvelopeDiary extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View view = inflater.inflate(R.layout.fragment_red_envelope_diary, container, false);
+       View view = inflater.inflate(R.layout.fragment_sell_diary, container, false);
         tradeData = view.findViewById(R.id.tradeData);
         ioacc.add("對方帳戶　　");
         trade.add("交易方向　　");
@@ -77,6 +77,7 @@ public class RedEnvelopeDiary extends Fragment {
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
+            Log.v("test","Reading data please wait...");
 //            Toast.makeText(getActivity(),"請稍後...",Toast.LENGTH_SHORT).show();
         }
         //查詢執行動作(不可使用與UI相關的指令)
@@ -90,6 +91,8 @@ public class RedEnvelopeDiary extends Fragment {
                 //String result = "對方帳戶\t交易\t金額\t餘額\n";
                 Statement st = con.createStatement();
                 ResultSet rs = st.executeQuery("select paccount, state, amount, moneyLeft from traderecord where account ='"+acc+"'");
+                Log.v("test","select paccount, state, amount, moneyLeft from traderecord where account ='"+acc+"'");
+
                 //將查詢結果裝入陣列
                 while(rs.next()){
                     //result += rs.getString("paccount")+"\t"+rs.getString("state")+"\t$"+rs.getString("amount")+"\t$"+rs.getString("moneyLeft")+"\n";
